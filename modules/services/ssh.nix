@@ -1,13 +1,13 @@
-{
-  options,
-  config,
-  lib,
-  ...
+{ options
+, config
+, lib
+, ...
 }:
 with lib;
 with lib.my; let
   cfg = config.modules.services.ssh;
-in {
+in
+{
   options.modules.services.ssh = {
     enable = mkBoolOpt false;
   };
@@ -23,10 +23,10 @@ in {
     };
 
     user.openssh.authorizedKeys.keys =
-      if config.user.name == "icy-thought"
+      if config.user.name == "lqiao"
       then [
         # TODO: replace with functional ssh-key.
       ]
-      else [];
+      else [ ];
   };
 }

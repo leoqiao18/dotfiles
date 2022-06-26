@@ -1,16 +1,16 @@
-{
-  inputs,
-  options,
-  config,
-  lib,
-  pkgs,
-  ...
+{ inputs
+, options
+, config
+, lib
+, pkgs
+, ...
 }:
 with lib;
 with lib.my; let
   cfg = config.modules.desktop.xmonad;
-  configDir = config.snowflake.configDir;
-in {
+  configDir = config.dotfiles.configDir;
+in
+{
   options.modules.desktop.xmonad = {
     enable = mkBoolOpt false;
   };
@@ -80,7 +80,7 @@ in {
       numlock.enable = true;
       preferStatusNotifierItems = true;
       windowManager.command = "${getExe pkgs.haskellPackages.my-xmonad}";
-      importedVariables = ["GDK_PIXBUF_MODULE_FILE"];
+      importedVariables = [ "GDK_PIXBUF_MODULE_FILE" ];
     };
   };
 }

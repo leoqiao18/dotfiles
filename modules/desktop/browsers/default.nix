@@ -14,7 +14,7 @@ in
       type = with types; nullOr str;
       default = null;
       description = "Default system browser";
-      example = "brave";
+      example = "chromium";
     };
   };
 

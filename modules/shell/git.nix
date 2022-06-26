@@ -1,14 +1,14 @@
-{
-  config,
-  options,
-  lib,
-  pkgs,
-  ...
+{ config
+, options
+, lib
+, pkgs
+, ...
 }:
 with lib;
 with lib.my; let
   cfg = config.modules.shell.git;
-in {
+in
+{
   options.modules.shell.git = {
     enable = mkBoolOpt false;
   };
@@ -49,7 +49,7 @@ in {
         '';
       };
 
-      attributes = ["*.lisp diff=lisp" "*.el diff=lisp" "*.org diff=org"];
+      attributes = [ "*.lisp diff=lisp" "*.el diff=lisp" "*.org diff=org" ];
 
       ignores = [
         # General:
@@ -88,51 +88,44 @@ in {
         "*.elc"
       ];
 
-      userName = "Icy-Thought";
-      userEmail = "icy-thought@pm.me";
-      signing = {
-        signByDefault = true;
-        key = "B593E438DDAB3C66";
-      };
+      userName = "LeoQiao18";
+      userEmail = "qiaofeitong@hotmail.com";
 
       extraConfig = {
         init.defaultBranch = "main";
         core = {
           editor = "nvim";
-          whitespace = "trailing-space,space-before-tab";
         };
 
-        tag.gpgSign = true;
         pull.rebase = true;
         push = {
           default = "current";
-          gpgSign = "if-asked";
-          autoSquash = true;
+          # autoSquash = true;
         };
 
-        github.user = "Icy-Thought";
-        gitlab.user = "Icy-Thought";
+        github.user = "LeoQiao18";
+        gitlab.user = "LeoQiao18";
 
-        filter = {
-          required = true;
-          smudge = "git-lfs smudge -- %f";
-          process = "git-lfs filter-process";
-          clean = "git-lfs clean -- %f";
-        };
+        # filter = {
+        #   required = true;
+        #   smudge = "git-lfs smudge -- %f";
+        #   process = "git-lfs filter-process";
+        #   clean = "git-lfs clean -- %f";
+        # };
 
         url = {
           "https://github.com/".insteadOf = "gh:";
           "git@github.com:".insteadOf = "ssh+gh:";
-          "git@github.com:icy-thought/".insteadOf = "gh:/";
+          "git@github.com:LeoQiao18/".insteadOf = "gh:/";
           "https://gitlab.com/".insteadOf = "gl:";
           "https://gist.github.com/".insteadOf = "gist:";
           "https://bitbucket.org/".insteadOf = "bb:";
         };
 
-        diff = {
-          "lisp".xfuncname = "^(((;;;+ )|\\(|([ \t]+\\(((cl-|el-patch-)?def(un|var|macro|method|custom)|gb/))).*)$";
-          "org".xfuncname = "^(\\*+ +.*)$";
-        };
+        # diff = {
+        #   "lisp".xfuncname = "^(((;;;+ )|\\(|([ \t]+\\(((cl-|el-patch-)?def(un|var|macro|method|custom)|gb/))).*)$";
+        #   "org".xfuncname = "^(\\*+ +.*)$";
+        # };
       };
     };
   };

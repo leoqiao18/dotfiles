@@ -1,14 +1,14 @@
-{
-  config,
-  options,
-  lib,
-  pkgs,
-  ...
+{ config
+, options
+, lib
+, pkgs
+, ...
 }:
 with lib;
 with lib.my; let
   cfg = config.modules.desktop.media.recorder;
-in {
+in
+{
   options.modules.desktop.media.recorder = {
     enable = mkBoolOpt false;
     audio.enable = mkBoolOpt true;
@@ -25,7 +25,7 @@ in {
         unstable.helvum
       ])
 
-      # Streaming + Screen-recodring:
+      # Streaming + Screen-recording:
       (mkIf cfg.video.enable [
         unstable.obs-studio
         unstable.handbrake

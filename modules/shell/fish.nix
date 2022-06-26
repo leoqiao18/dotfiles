@@ -1,15 +1,15 @@
-{
-  config,
-  options,
-  lib,
-  pkgs,
-  ...
+{ config
+, options
+, lib
+, pkgs
+, ...
 }:
 with lib;
 with lib.my; let
   cfg = config.modules.shell;
-  fishCfg = "${config.snowflake.configDir}/fish";
-in {
+  fishCfg = "${config.dotfiles.configDir}/fish";
+in
+{
   options.modules.shell.fish = {
     enable = mkBoolOpt false;
   };

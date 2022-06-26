@@ -1,21 +1,21 @@
-{
-  config,
-  options,
-  lib,
-  pkgs,
-  inputs,
-  ...
+{ config
+, options
+, lib
+, pkgs
+, inputs
+, ...
 }:
 with lib;
 with lib.my; let
   cfg = config.modules.desktop.editors.vscodium;
-in {
+in
+{
   options.modules.desktop.editors.vscodium = {
     enable = mkBoolOpt false;
   };
 
   config = mkIf cfg.enable {
-    home.programs.vscode = with config.snowflake; {
+    home.programs.vscode = with config.dotfiles; {
       enable = true;
       package = pkgs.vscodium;
       mutableExtensionsDir = true;
@@ -26,8 +26,8 @@ in {
       };
 
       userSettings =
-        import "${configDir}/vscodium/settings.nix" {inherit config;};
-      keybindings = import "${configDir}/vscodium/keybindings.nix" {};
+        import "${configDir}/vscodium/settings.nix" { inherit config; };
+      keybindings = import "${configDir}/vscodium/keybindings.nix" { };
     };
   };
 }

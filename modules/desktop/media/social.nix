@@ -1,14 +1,14 @@
-{
-  config,
-  options,
-  lib,
-  pkgs,
-  ...
+{ config
+, options
+, lib
+, pkgs
+, ...
 }:
 with lib;
 with lib.my; let
   cfg = config.modules.desktop.media.social;
-in {
+in
+{
   options.modules.desktop.media.social = {
     common.enable = mkBoolOpt true;
   };
@@ -16,10 +16,12 @@ in {
   config = mkMerge [
     (mkIf cfg.common.enable {
       user.packages = with pkgs; [
-        element-desktop
+        # element-desktop
         unstable.discord
-        signal-desktop
-        tdesktop
+        unstable.slack
+        unstable.zoom-us
+        # signal-desktop
+        # tdesktop
       ];
 
       # TODO: discord (powercord) + declerative setup.

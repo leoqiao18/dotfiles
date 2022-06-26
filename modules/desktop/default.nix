@@ -1,24 +1,25 @@
-{
-  config,
-  options,
-  lib,
-  pkgs,
-  ...
+{ config
+, options
+, lib
+, pkgs
+, ...
 }:
 with lib;
 with lib.my; let
   cfg = config.modules.desktop;
-in {
+in
+{
   config = mkIf config.services.xserver.enable {
     assertions = [
       {
         assertion = (countAttrs (n: v: n == "enable" && value) cfg) < 2;
-        message = "Can't enable DE/WM <2 at the same time.";
+        message = "Can't enable more than one DE/WM at the same time.";
       }
       {
-        assertion = let
-          srv = config.services;
-        in
+        assertion =
+          let
+            srv = config.services;
+          in
           srv.xserver.enable
           || srv.sway.enable
           || !(anyAttrs
@@ -35,7 +36,7 @@ in {
         desktopName = "Qalculate";
         icon = "calc";
         exec = "${getExe kitty} -T Qalculate -e qalc";
-        categories = ["Development"];
+        categories = [ "Development" ];
       })
       qgnomeplatform
       xcolor
@@ -56,7 +57,7 @@ in {
 
     # Try really hard to get QT to respect my GTK theme.
     env = {
-      GTK_DATA_PREFIX = ["${config.system.path}"];
+      GTK_DATA_PREFIX = [ "${config.system.path}" ];
       QT_QPA_PLATFORMTHEME = "gnome";
       # QT_STYLE_OVERRIDE = "kvantum";
     };

@@ -1,14 +1,14 @@
-{
-  config,
-  options,
-  lib,
-  pkgs,
-  ...
+{ config
+, options
+, lib
+, pkgs
+, ...
 }:
 with lib;
 with lib.my; let
   cfg = config.modules.desktop.editors;
-in {
+in
+{
   options.modules.desktop.editors = {
     default = mkOption {
       type = with types; str;
@@ -23,29 +23,29 @@ in {
       env.EDITOR = cfg.default;
     })
 
-    (mkIf (cfg.default == "nvim" || cfg.default == "emacs") {
-      user.packages = with pkgs; [
-        imagemagick
-        editorconfig-core-c
-        sqlite
-
-        # module dependencies
-        ## checkers: aspell
-        (aspellWithDicts (dct:
-          with dct; [
-            en
-            en-computers
-            en-science
-          ]))
-
-        ## Markdown
-        nodePackages.markdownlint-cli2
-        vale
-
-        ## lsp: LaTeX + Org-Mode
-        tectonic
-        pandoc
-      ];
-    })
+    # (mkIf (cfg.default == "nvim" || cfg.default == "emacs") {
+    #   user.packages = with pkgs; [
+    #     imagemagick
+    #     editorconfig-core-c
+    #     sqlite
+    #
+    #     # module dependencies
+    #     ## checkers: aspell
+    #     (aspellWithDicts (dct:
+    #       with dct; [
+    #         en
+    #         en-computers
+    #         en-science
+    #       ]))
+    #
+    #     ## Markdown
+    #     nodePackages.markdownlint-cli2
+    #     vale
+    #
+    #     ## lsp: LaTeX + Org-Mode
+    #     tectonic
+    #     pandoc
+    #   ];
+    # })
   ];
 }
