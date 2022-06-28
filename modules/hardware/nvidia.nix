@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, lib, ... }:
 with lib;
 with lib.my; let
   cfg = config.modules.hardware.nvidia;
