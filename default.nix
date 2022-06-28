@@ -63,10 +63,17 @@ with lib.my; {
   networking.useDHCP = mkDefault false;
 
   # Use the latest kernel
-  boot.kernelPackages = mkDefault pkgs.linuxKernel_latest;
+  # boot.kernelPackages = mkDefault pkgs.linuxPackages_latest;
+  boot = {
+    kernelPackages = mkDefault pkgs.linuxPackages_latest;
+    loader = {
+      systemd-boot.enable = mkDefault true;
+      efi.canTouchEfiVariables = mkDefault true;
+    };
+  };
 
   console = {
-    font = mkDefault "Lat2-Terminus16";
+    # font = mkDefault "Lat2-Terminus16";
     useXkbConfig = mkDefault true;
   };
 

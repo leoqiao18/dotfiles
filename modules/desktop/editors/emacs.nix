@@ -1,15 +1,15 @@
-{
-  config,
-  lib,
-  pkgs,
-  inputs,
-  ...
+{ config
+, lib
+, pkgs
+, inputs
+, ...
 }:
 with lib;
 with lib.my; let
   cfg = config.modules.desktop.editors.emacs;
   configDir = config.snowflake.configDir;
-in {
+in
+{
   options.modules.desktop.editors.emacs = {
     enable = mkBoolOpt false;
     doom = rec {
@@ -21,7 +21,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    nixpkgs.overlays = with inputs; [emacs.overlay];
+    nixpkgs.overlays = with inputs; [ emacs.overlay ];
 
     home.services.emacs = {
       enable = true;
@@ -31,21 +31,20 @@ in {
     home.programs.emacs = {
       enable = true;
       package = pkgs.emacsNativeComp;
-      extraPackages = epkgs: with epkgs; [vterm];
+      extraPackages = epkgs: with epkgs; [ vterm ];
     };
 
     user.packages = with pkgs; [
       binutils
       gnutls
       zstd
-      (mkIf (config.programs.gnupg.agent.enable) pinentry_emacs)
     ];
 
     # Fonts -> icons + ligatures when specified:
-    fonts.fonts = [pkgs.emacs-all-the-icons-fonts];
+    fonts.fonts = [ pkgs.emacs-all-the-icons-fonts ];
 
     # Enable access to doom (tool).
-    env.PATH = ["$XDG_CONFIG_HOME/emacs/bin"];
+    env.PATH = [ "$XDG_CONFIG_HOME/emacs/bin" ];
 
     environment.variables = {
       EMACSDIR = "$XDG_CONFIG_HOME/emacs";

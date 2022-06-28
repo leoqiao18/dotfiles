@@ -17,7 +17,6 @@ in
 
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
-      haskellPackages.my-xmonad
       lightdm
       libnotify
       dunst
@@ -43,16 +42,8 @@ in
           greeters.mini.enable = true;
         };
       };
+      windowManager.xmonad.enable = true;
     };
-    windowManager.session = [
-      {
-        name = "xmonad";
-        start = ''
-          /usr/bin/env my-xmonad &
-          waitPID=$!
-        '';
-      }
-    ];
 
     services = {
       autorandr.enable = true;
@@ -68,12 +59,19 @@ in
       status-notifier-watcher.enable = true;
       network-manager-applet.enable = true;
     };
-    home.xsession = {
-      enable = true;
-      numlock.enable = true;
-      preferStatusNotifierItems = true;
-      windowManager.command = "${getExe pkgs.haskellPackages.my-xmonad}";
-      importedVariables = [ "GDK_PIXBUF_MODULE_FILE" ];
+
+    home.configFile = {
+      "xmonad" = {
+        source = "${configDir}/xmonad";
+        recursive = true;
+      };
     };
+    # home.xsession = {
+    #   enable = true;
+    #   numlock.enable = true;
+    #   preferStatusNotifierItems = true;
+    #   windowManager.command = "${getExe pkgs.haskellPackages.my-xmonad}";
+    #   importedVariables = [ "GDK_PIXBUF_MODULE_FILE" ];
+    # };
   };
 }

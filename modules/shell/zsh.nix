@@ -31,10 +31,10 @@ in
       } // mkIf config.programs.tmux.enable {
         mux = "tmuxinator";
       };
-      history = {
-        size = 10000;
-        path = "${config.xdg.dataHome}/zsh/history";
-      };
+      # history = {
+      #   size = 10000;
+      #   path = "${config.xdg.dataHome}/zsh/history";
+      # };
       oh-my-zsh = {
         enable = true;
         plugins = [ "git" ];
