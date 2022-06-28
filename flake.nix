@@ -72,17 +72,17 @@
 
       nixosConfigurations = mapHosts ./hosts { };
 
-      devShell."${system}" = import ./shell.nix { inherit pkgs; };
+      # devShell."${system}" = import ./shell.nix { inherit pkgs; };
 
-      templates =
-        {
-          full = {
-            path = ./.;
-            description = "λLeo.Qiao's NixOS system";
-          };
-        }
-        // import ./templates;
-      defaultTemplate = self.templates.full;
+      # templates =
+      #   {
+      #     full = {
+      #       path = ./.;
+      #       description = "λLeo.Qiao's NixOS system";
+      #     };
+      #   }
+      #   // import ./templates;
+      # defaultTemplate = self.templates.full;
 
       # TODO: deployment + template tool.
       # defaultApp."${system}" = {

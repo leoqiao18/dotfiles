@@ -1,15 +1,15 @@
-{
-  options,
-  config,
-  lib,
-  pkgs,
-  ...
+{ options
+, config
+, lib
+, pkgs
+, ...
 }:
 with lib;
 with lib.my; let
   cfg = config.modules.themes;
   deskCfg = config.modules.desktop;
-in {
+in
+{
   config = mkIf (cfg.active == "catppuccin") (mkMerge [
     {
       modules.themes = {
@@ -24,16 +24,16 @@ in {
           };
         };
 
-        neovim.theme = "catppuccin";
+        # neovim.theme = "catppuccin";
 
-        vscode.theme = {
-          dark = "Catppuccin";
-          light = "Quiet Light";
-        };
+        # vscode.theme = {
+        #   dark = "Catppuccin";
+        #   light = "Quiet Light";
+        # };
 
         font = {
-          sans.family = "VictorMono Nerd Font";
-          mono.family = "VictorMono Nerd Font Mono";
+          sans.family = "Fira Sans";
+          mono.family = "Fira Code";
           emoji = "Twitter Color Emoji";
         };
 
@@ -81,8 +81,9 @@ in {
       ];
 
       fonts.fonts = with pkgs; [
-        (nerdfonts.override {fonts = ["VictorMono"];})
-        twitter-color-emoji
+        fira-code
+        fira-code-symbols
+        font-awesome
       ];
 
       home.configFile = with deskCfg;
@@ -122,7 +123,7 @@ in {
         ];
     })
 
-    (mkIf (deskCfg.xmonad.enable || deskCfg.qtile.enable) {
+    (mkIf (deskCfg.xmonad.enable) {
       services.xserver.displayManager = {
         sessionCommands = with cfg.gtk; ''
           ${getExe pkgs.xorg.xsetroot} -xcf ${pkgs.bibata-cursors}/share/icons/${cursor.name}/cursors/${cursor.default} ${
@@ -139,13 +140,13 @@ in {
         '';
       };
 
-      # Fcitx5
-      home.file.".local/share/fcitx5/themes".source = pkgs.fetchFromGitHub {
-        owner = "icy-thought";
-        repo = "fcitx5-catppuccin";
-        rev = "3b699870fb2806404e305fe34a3d2541d8ed5ef5";
-        sha256 = "hOAcjgj6jDWtCGMs4Gd49sAAOsovGXm++TKU3NhZt8w=";
-      };
+      # # Fcitx5
+      # home.file.".local/share/fcitx5/themes".source = pkgs.fetchFromGitHub {
+      #   owner = "icy-thought";
+      #   repo = "fcitx5-catppuccin";
+      #   rev = "3b699870fb2806404e305fe34a3d2541d8ed5ef5";
+      #   sha256 = "hOAcjgj6jDWtCGMs4Gd49sAAOsovGXm++TKU3NhZt8w=";
+      # };
     })
   ]);
 }

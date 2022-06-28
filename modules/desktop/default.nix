@@ -30,24 +30,25 @@ in
     ];
 
     user.packages = with pkgs; [
-      libqalculate
-      (makeDesktopItem {
-        name = "kalker";
-        desktopName = "Qalculate";
-        icon = "calc";
-        exec = "${getExe kitty} -T Qalculate -e qalc";
-        categories = [ "Development" ];
-      })
-      qgnomeplatform
-      xcolor
+      # libqalculate
+      # (makeDesktopItem {
+      #   name = "kalker";
+      #   desktopName = "Qalculate";
+      #   icon = "calc";
+      #   exec = "${getExe kitty} -T Qalculate -e qalc";
+      #   categories = [ "Development" ];
+      # })
+      # qgnomeplatform
+      # xcolor
     ];
 
     fonts = {
       fontDir.enable = true;
       enableGhostscriptFonts = true;
       fonts = with pkgs; [
-        sarasa-gothic
-        scheherazade-new
+        ubuntu_font_family
+        dejavu_fonts
+        symbola
       ];
     };
 

@@ -48,17 +48,16 @@ in
           greeters.mini.enable = true;
         };
       };
-
-      windowManager.session = [
-        {
-          name = "xmonad";
-          start = ''
-            /usr/bin/env my-xmonad &
-            waitPID=$!
-          '';
-        }
-      ];
     };
+    windowManager.session = [
+      {
+        name = "xmonad";
+        start = ''
+          /usr/bin/env my-xmonad &
+          waitPID=$!
+        '';
+      }
+    ];
 
     services = {
       autorandr.enable = true;
@@ -74,7 +73,6 @@ in
       status-notifier-watcher.enable = true;
       network-manager-applet.enable = true;
     };
-
     home.xsession = {
       enable = true;
       numlock.enable = true;
