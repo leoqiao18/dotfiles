@@ -42,7 +42,10 @@ in
           greeters.mini.enable = true;
         };
       };
-      windowManager.xmonad.enable = true;
+      windowManager.xmonad = {
+        enable = true;
+        enableContribAndExtras = true;
+      };
     };
 
     services = {
