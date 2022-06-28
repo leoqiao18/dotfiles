@@ -51,7 +51,7 @@
     develop = {
       haskell.enable = true;
       python.enable = true;
-      rust.enable = true;
+      # rust.enable = true;
     };
 
     # containers.transmission = {
