@@ -16,11 +16,6 @@ in
   };
 
   config = mkIf cfg.enable {
-    nixpkgs.overlays = with inputs; [
-      xmonad.overlay
-      xmonad-contrib.overlay
-    ];
-
     environment.systemPackages = with pkgs; [
       haskellPackages.my-xmonad
       lightdm
