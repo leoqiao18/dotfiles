@@ -10,7 +10,7 @@ with lib.my; let
 in
 {
   # config = mkIf cfg.gnome.enable {
-  config = {
+  config = mkIf cfg.xmonad.enable {
     i18n.inputMethod = {
       enabled = "ibus";
       ibus.engines = with pkgs.ibus-engines; [
