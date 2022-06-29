@@ -26,6 +26,7 @@ in
       xdotool
       xclip
       feh
+      arandr
     ];
 
     modules.desktop.media.browser = {
