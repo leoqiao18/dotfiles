@@ -16,7 +16,7 @@ import           XMonad.Hooks.EwmhDesktops
 import           XMonad.Hooks.ManageDocks
 import           XMonad.Util.EZConfig
 import           XMonad.Util.Run
-import           Xmonad.Util.Dmenu
+import           XMonad.Util.Dmenu as DM
 
 import qualified Data.Map                      as M
 import qualified XMonad.StackSet               as W
@@ -41,7 +41,7 @@ nord14 = "#a3be8c"
 nord15 = "#b48ead"
 
 
-myConfig :: XConfig a
+-- myConfig :: XConfig a
 myConfig =
   def { modMask            = mod4Mask -- <Super> key
       , terminal           = "kitty"
@@ -89,16 +89,16 @@ myWorkspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
 myKeys :: [(String, X ())]
 myKeys =
   -- Xmonad
-  [ ("M-C-r"                 , spawn "xmonad -- recompile")
+  [ ("M-C-r"                 , spawn "xmonad --recompile")
   , ("M-S-r"                 , spawn "xmonad --restart")
   , ("M-S-q"                 , io exitSuccess)
 
   -- Terminal
-  , ("M-<Return>"            , spawn myTerminal)
+  , ("M-<Return>"            , spawn "kitty")
 
   -- Window kill
-  , ("M-S-c"                 , kill1)
-  , ("M-S-a"                 , killAll)
+  , ("M-S-c"                 , kill)
+  -- , ("M-S-a"                 , killAll)
 
   -- Window navigation
   , ("M-m"                   , windows W.focusMaster)
@@ -244,7 +244,7 @@ myMouseBindings (XConfig { XMonad.modMask = modm }) =
 -- The available layouts.  Note that each layout is separated by |||,
 -- which denotes layout choice.
 --
-myLayout = avoidStruts (tiled ||| Mirror tiled ||| Full)
+myLayoutHook = avoidStruts (tiled ||| Mirror tiled ||| Full)
  where
      -- default tiling algorithm partitions the screen into two panes
   tiled   = Tall nmaster delta ratio
