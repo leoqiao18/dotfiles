@@ -1,17 +1,17 @@
 Config { 
 
    -- appearance
-     font =         "xft:Iosevka Nerd Font:style=Medium:size=12:antialias=true"
-   , bgColor =      "black"
-   , fgColor =      "#646464"
+     font =         "xft:Iosevka:style=Medium:size=12:antialias=true"
+   , bgColor =      "#2e3440"
+   , fgColor =      "#eceff4"
    , position =     Top
-   , border =       BottomB
-   , borderColor =  "#646464"
+   -- , border =       BottomB
+   -- , borderColor =  "#646464"
 
    -- layout
    , sepChar =  "%"   -- delineator between plugin names and straight text
    , alignSep = "}{"  -- separator between left-right alignment
-   , template = "%battery% | %multicpu% | %coretemp% | %memory% | %dynnetwork% }{ %RJTT% | %default:Master% | %date% || %kbd% "
+   , template = "%XMonadLog% } %battery% | %multicpu% | %coretemp% | %memory% | %dynnetwork% { %RJTT% | %default:Master% | %date% || %kbd% "
 
    -- general behavior
    , lowerOnStart =     True    -- send to bottom of window stack on start
@@ -108,5 +108,6 @@ Config {
         , Run Kbd            [ ("us(dvorak)" , "<fc=#00008B>DV</fc>")
                              , ("us"         , "<fc=#8B0000>US</fc>")
                              ]
-        ]
+	, Run XMonadLog
+	]
    }

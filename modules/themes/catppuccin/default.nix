@@ -81,6 +81,7 @@ in
       ];
 
       fonts.fonts = with pkgs; [
+        iosevka
         fira-code
         fira-code-symbols
         font-awesome

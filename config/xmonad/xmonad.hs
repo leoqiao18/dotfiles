@@ -12,14 +12,16 @@ import           System.Exit
 import           XMonad
 import           XMonad.Actions.Navigation2D
 import           XMonad.Actions.Volume
-import           XMonad.Hook.StatusBar
-import           XMonad.Hook.StatusBar.PP
+import           XMonad.Hooks.StatusBar
+import           XMonad.Hooks.StatusBar.PP
 import           XMonad.Hooks.EwmhDesktops
 import           XMonad.Hooks.ManageDocks
 import           XMonad.Util.Dmenu             as DM
 import           XMonad.Util.EZConfig
 import           XMonad.Util.Run
-import           Xmonad.Hooks.DynamicLog
+import           XMonad.Hooks.DynamicLog
+import           XMonad.Hooks.ManageHelpers
+import           XMonad.Util.Loggers
 
 import qualified Data.Map                      as M
 import qualified XMonad.StackSet               as W
@@ -44,14 +46,12 @@ nord14 = "#a3be8c"
 nord15 = "#b48ead"
 
 
--- myConfig :: XConfig a
-myConfig :: (LayoutClass l Window, Read (l Window)) => XConfig
 myConfig =
   def { modMask            = mod4Mask -- <Super> key
       , terminal           = "kitty"
-      , borderWidth        = 2
+      , borderWidth        = 3
       , normalBorderColor  = nord0
-      , focusedBorderColor = nord2
+      , focusedBorderColor = nord7
       , workspaces         = myWorkspaces
       , startupHook        = myStartupHook
       , layoutHook         = myLayoutHook
@@ -84,31 +84,32 @@ myDmenuMap :: MonadIO m => M.Map String a -> m (Maybe a)
 myDmenuMap = DM.menuMapArgs "rofi" myDmenuArgs
 
 myXmobarPP :: PP
-myXmobarPP = def { ppSep             = magenta " • "
+myXmobarPP = def { ppSep             = nord10' " • "
                  , ppTitleSanitize   = xmobarStrip
-                 , ppCurrent = wrap " " "" . xmobarBorder "Top" "#8be9fd" 2
-                 , ppHidden          = white . wrap " " ""
-                 , ppHiddenNoWindows = lowWhite . wrap " " ""
-                 , ppUrgent          = red . wrap (yellow "!") (yellow "!")
+                 , ppCurrent = wrap " " "" . xmobarBorder "Top" nord7 2
+                 , ppHidden          = nord6' . wrap " " ""
+                 , ppHiddenNoWindows = nord5' . wrap " " ""
+                 , ppUrgent          = nord11' . wrap (nord13' "!") (nord13' "!")
                  , ppOrder           = \[ws, l, _, wins] -> [ws, l, wins]
                  , ppExtras          = [logTitles formatFocused formatUnfocused]
                  }
  where
-  formatFocused   = wrap (white "[") (white "]") . magenta . ppWindow
-  formatUnfocused = wrap (lowWhite "[") (lowWhite "]") . blue . ppWindow
+  formatFocused   = wrap (nord6' "[") (nord6' "]") . nord7' . ppWindow
+  formatUnfocused = wrap (nord5' "[") (nord5' "]") . nord9' . ppWindow
 
   -- | Windows should have *some* title, which should not not exceed a
   -- sane length.
   ppWindow :: String -> String
   ppWindow = xmobarRaw . (\w -> if null w then "untitled" else w) . shorten 30
 
-  blue, lowWhite, magenta, red, white, yellow :: String -> String
-  magenta  = xmobarColor "#ff79c6" ""
-  blue     = xmobarColor "#bd93f9" ""
-  white    = xmobarColor "#f8f8f2" ""
-  yellow   = xmobarColor "#f1fa8c" ""
-  red      = xmobarColor "#ff5555" ""
-  lowWhite = xmobarColor "#bbbbbb" ""
+  nord5', nord6', nord9', nord11', nord13' :: String -> String
+  nord5'    = xmobarColor nord5 ""
+  nord6'    = xmobarColor nord6 ""
+  nord7'    = xmobarColor nord7 ""
+  nord9'  = xmobarColor nord9 ""
+  nord10'  = xmobarColor nord10 ""
+  nord11'  = xmobarColor nord11 ""
+  nord13'  = xmobarColor nord13 ""
 
 -- The default number of workspaces (virtual screens) and their names.
 -- By default we use numeric strings, but any string may be used as a
