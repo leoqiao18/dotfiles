@@ -12,11 +12,14 @@ import           System.Exit
 import           XMonad
 import           XMonad.Actions.Navigation2D
 import           XMonad.Actions.Volume
+import           XMonad.Hook.StatusBar
+import           XMonad.Hook.StatusBar.PP
 import           XMonad.Hooks.EwmhDesktops
 import           XMonad.Hooks.ManageDocks
+import           XMonad.Util.Dmenu             as DM
 import           XMonad.Util.EZConfig
 import           XMonad.Util.Run
-import           XMonad.Util.Dmenu as DM
+import           Xmonad.Hooks.DynamicLog
 
 import qualified Data.Map                      as M
 import qualified XMonad.StackSet               as W
@@ -42,6 +45,7 @@ nord15 = "#b48ead"
 
 
 -- myConfig :: XConfig a
+myConfig :: (LayoutClass l Window, Read (l Window)) => XConfig
 myConfig =
   def { modMask            = mod4Mask -- <Super> key
       , terminal           = "kitty"
@@ -57,6 +61,15 @@ myConfig =
       }
     `additionalKeysP` myKeys
 
+main :: IO ()
+main =
+  xmonad
+    $ docks
+    . ewmh
+    . withEasySB (statusBarProp "xmobar" (pure myXmobarPP)) defToggleStrutsKey
+    . withNavigation2DConfig def
+    $ myConfig
+
 -- App launcher: using rofi over dmenu
 -- myAppLauncher =
 --   "rofi -show combi -combi-modi \"window,drun\" -modi \"combi,run,ssh\" -show-icons"
@@ -69,6 +82,33 @@ myDmenu = DM.menuArgs "rofi" myDmenuArgs
 
 myDmenuMap :: MonadIO m => M.Map String a -> m (Maybe a)
 myDmenuMap = DM.menuMapArgs "rofi" myDmenuArgs
+
+myXmobarPP :: PP
+myXmobarPP = def { ppSep             = magenta " • "
+                 , ppTitleSanitize   = xmobarStrip
+                 , ppCurrent = wrap " " "" . xmobarBorder "Top" "#8be9fd" 2
+                 , ppHidden          = white . wrap " " ""
+                 , ppHiddenNoWindows = lowWhite . wrap " " ""
+                 , ppUrgent          = red . wrap (yellow "!") (yellow "!")
+                 , ppOrder           = \[ws, l, _, wins] -> [ws, l, wins]
+                 , ppExtras          = [logTitles formatFocused formatUnfocused]
+                 }
+ where
+  formatFocused   = wrap (white "[") (white "]") . magenta . ppWindow
+  formatUnfocused = wrap (lowWhite "[") (lowWhite "]") . blue . ppWindow
+
+  -- | Windows should have *some* title, which should not not exceed a
+  -- sane length.
+  ppWindow :: String -> String
+  ppWindow = xmobarRaw . (\w -> if null w then "untitled" else w) . shorten 30
+
+  blue, lowWhite, magenta, red, white, yellow :: String -> String
+  magenta  = xmobarColor "#ff79c6" ""
+  blue     = xmobarColor "#bd93f9" ""
+  white    = xmobarColor "#f8f8f2" ""
+  yellow   = xmobarColor "#f1fa8c" ""
+  red      = xmobarColor "#ff5555" ""
+  lowWhite = xmobarColor "#bbbbbb" ""
 
 -- The default number of workspaces (virtual screens) and their names.
 -- By default we use numeric strings, but any string may be used as a
@@ -102,7 +142,7 @@ myKeys =
 
   -- Window navigation
   , ("M-m"                   , windows W.focusMaster)
-  , ("M-p"                   , spawn "rofi -show drun -show-icons")
+  , ("M-p", spawn "rofi -show drun -show-icons")
   , ("M-S-p"                 , spawn "rofi -show run")
   -- , ("M-h"                   , windowGo L False)
   -- , ("M-j"                   , windowGo D False)
@@ -314,9 +354,6 @@ myStartupHook = return ()
 
 -- Run xmonad with the settings you specify. No need to modify this.
 --
-main = do
-  xmproc <- spawnPipe "xmobar -x 0 $HOME/.config/xmobar/xmobarrc"
-  xmonad $ docks . ewmh . (withNavigation2DConfig def) $ myConfig
 
 -- A structure containing your configuration settings, overriding
 -- fields in the default config. Any you don't override, will
