@@ -1,22 +1,22 @@
-{
-  config,
-  options,
-  lib,
-  pkgs,
-  ...
+{ config
+, options
+, lib
+, pkgs
+, ...
 }:
 with lib;
 with lib.my; let
   cfg = config.modules.desktop.terminal.kitty;
-  configDir = config.snowflake.configDir;
+  configDir = config.dotfiles.configDir;
   active = config.modules.themes.active;
-in {
+in
+{
   options.modules.desktop.terminal.kitty = with types; {
     enable = mkBoolOpt false;
   };
 
   config = mkIf cfg.enable {
-    user.packages = with pkgs; [kitty];
+    user.packages = with pkgs; [ kitty ];
     #
     # home.configFile = {
     #   "kitty/tab_bar.py".source = "${configDir}/kitty/tab_bar.py";

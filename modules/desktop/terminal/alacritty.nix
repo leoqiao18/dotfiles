@@ -1,22 +1,22 @@
-{
-  config,
-  options,
-  lib,
-  pkgs,
-  ...
+{ config
+, options
+, lib
+, pkgs
+, ...
 }:
 with lib;
 with lib.my; let
   cfg = config.modules.desktop.terminal.alacritty;
-  configDir = config.snowflake.configDir;
+  configDir = config.dotfiles.configDir;
   active = config.modules.themes.active;
-in {
+in
+{
   options.modules.desktop.terminal.alacritty = {
     enable = mkBoolOpt false;
   };
 
   config = mkIf cfg.enable {
-    user.packages = with pkgs; [alacritty];
+    user.packages = with pkgs; [ alacritty ];
 
     home.configFile."alacritty/alacritty.yml".text = ''
       ${optionalString (active != null) ''

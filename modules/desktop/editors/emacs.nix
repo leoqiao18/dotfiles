@@ -7,7 +7,7 @@
 with lib;
 with lib.my; let
   cfg = config.modules.desktop.editors.emacs;
-  configDir = config.snowflake.configDir;
+  configDir = config.dotfiles.configDir;
 in
 {
   options.modules.desktop.editors.emacs = {
