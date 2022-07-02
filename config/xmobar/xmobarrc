@@ -1,17 +1,19 @@
 Config { 
 
    -- appearance
-     font =         "xft:Iosevka:style=Medium:size=12:antialias=true"
+     font =         "xft:FiraCode Nerd Font:size=12:antialias=true"
+     additionalFonts = [ "xft:Font Awesome 6 Free Solid:pixelsize=13"
+                       , "xft:Font Awesome 6 Brands:pixelsize=13"]
    , bgColor =      "#2e3440"
    , fgColor =      "#eceff4"
-   , position =     Top
+   , position =     TopSize L 100 24
    -- , border =       BottomB
    -- , borderColor =  "#646464"
 
    -- layout
    , sepChar =  "%"   -- delineator between plugin names and straight text
    , alignSep = "}{"  -- separator between left-right alignment
-   , template = "%XMonadLog% } %battery% | %multicpu% | %coretemp% | %memory% | %dynnetwork% { %RJTT% | %default:Master% | %date% || %kbd% "
+   , template = "%XMonadLog% } %battery% | %multicpu% | %coretemp% | %memory% | %dynnetwork% { %default:Master% | %date% || %kbd% "
 
    -- general behavior
    , lowerOnStart =     True    -- send to bottom of window stack on start
@@ -37,12 +39,8 @@ Config {
    --   see http://projects.haskell.org/xmobar/#system-monitor-plugins.
    , commands = 
 
-        -- weather monitor
-        [ Run Weather "RJTT" [ "--template", "<skyCondition> | <fc=#4682B4><tempC></fc>°C | <fc=#4682B4><rh></fc>% | <fc=#4682B4><pressure></fc>hPa"
-                             ] 36000
-
         -- network activity monitor (dynamic interface resolution)
-        , Run DynNetwork     [ "--template" , "<dev>: <tx>kB/s|<rx>kB/s"
+        [ Run DynNetwork     [ "--template" , "<dev>: <tx>kB/s|<rx>kB/s"
                              , "--Low"      , "1000"       -- units: B/s
                              , "--High"     , "5000"       -- units: B/s
                              , "--low"      , "darkgreen"
@@ -96,9 +94,13 @@ Config {
         -- volume monitor
         , Run Volume "default"
                      "Master"
-                     -- [ "--template" , "Vol: [<volumebar>] <status>" ]
-                     []
-                     10
+                     [ "--template", "<fn=1>\xf028</fn> <volume> <status>"
+		     , "--"
+		     , "--on", "[on]"
+		     , "--off", "[off]"
+		     , "--onc", "#8fbcbb"
+		     , "--offc", "#bf616a"
+		     ] 10
 
         -- time and date indicator 
         --   (%F = y-m-d date, %a = day of week, %T = h:m:s time)

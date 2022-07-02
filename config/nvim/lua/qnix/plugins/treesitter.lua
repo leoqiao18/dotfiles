@@ -3,7 +3,38 @@ local M = {}
 function M.config()
   require('nvim-treesitter.configs').setup {
     -- One of "all", "maintained" (parsers with maintainers), or a list of languages
-    ensure_installed = "maintained",
+    ensure_installed = {
+      "bash",
+      "bibtex",
+      "c",
+      "cpp",
+      "css",
+      "dot",
+      "fish",
+      "go",
+      "haskell",
+      "html",
+      "java",
+      "javascript",
+      "json",
+      "latex",
+      "llvm",
+      "lua",
+      "make",
+      "markdown",
+      "nix",
+      "ocaml",
+      "ocaml_interface",
+      "python",
+      "rst",
+      "rust",
+      "toml",
+      "typescript",
+      "vim",
+      "yaml",
+      "zig",
+    },
+
 
     -- Install languages synchronously (only applied to `ensure_installed`)
     sync_install = false,
@@ -51,7 +82,7 @@ function M.plug(use)
     },
     run = ":TSUpdate",
     config = function()
-      require("pokerus.plugins.treesitter").config()
+      require("qnix.plugins.treesitter").config()
     end
   }
 

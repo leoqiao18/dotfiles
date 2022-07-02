@@ -32,8 +32,8 @@ in
         # };
 
         font = {
-          sans.family = "Fira Sans";
-          mono.family = "Fira Code";
+          sans.family = "FiraCode Nerd Font";
+          mono.family = "FiraCode Nerd Font Mono";
           emoji = "Twitter Color Emoji";
         };
 
@@ -81,10 +81,17 @@ in
       ];
 
       fonts.fonts = with pkgs; [
-        iosevka
-        fira-code
-        fira-code-symbols
+        # iosevka
+        # fira-code
+        # fira-code-symbols
+
         font-awesome
+
+        (nerdfonts.override {
+          fonts = [
+            "FiraCode"
+          ];
+        })
       ];
 
       home.configFile = with deskCfg;
@@ -109,10 +116,6 @@ in
           (mkIf terminal.kitty.enable {
             "kitty/config/catppuccin.conf".text =
               import ./config/kitty/catppuccin.conf cfg;
-          })
-          (mkIf terminal.wezterm.enable {
-            "wezterm/config/catppuccin.lua".text =
-              import ./config/wezterm/catppuccin.lua cfg;
           })
           (mkIf media.viewer.document.enable {
             "zathura/zathurarc".text = import ./config/zathura/zathurarc cfg;

@@ -94,7 +94,7 @@ function M.plug(use)
       "folke/lsp-colors.nvim",
     },
     config = function()
-      require("qnix.pluging.lsp").config()
+      require("qnix.plugins.lsp").config()
     end
   }
 end

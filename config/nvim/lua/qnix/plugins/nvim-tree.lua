@@ -8,7 +8,6 @@ return {
       config = function()
         require('nvim-tree').setup {
           -- closes neovim automatically when the tree is the last **WINDOW** in the view
-          auto_close = true,
           hijack_netrw = false,
           sort_by = "name",
           diagnostics = {

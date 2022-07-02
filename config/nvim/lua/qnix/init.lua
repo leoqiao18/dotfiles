@@ -18,6 +18,9 @@ function M.setup_plugins()
   end
 
   return require('packer').startup(function(use)
+    use { "wbthomason/packer.nvim", opt = true }
+    use { "lewis6991/impatient.nvim" }
+
     -- Automatically require any plugin module in ~/.config/nvim/lua/qnix/plugins/
       for _, p in
         ipairs(
