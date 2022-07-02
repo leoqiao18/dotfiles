@@ -49,9 +49,17 @@
     };
 
     develop = {
+      cc.enable = true;
+      coq.enable = true;
+      diagnostic.enable = true;
+      go.enable = true;
       haskell.enable = true;
+      javascript.enable = true;
+      lua.enable = true;
+      nix.enable = true;
+      ocaml.enable = true;
       python.enable = true;
-      # rust.enable = true;
+      shell.enable = true;
     };
 
     # containers.transmission = {

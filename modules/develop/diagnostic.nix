@@ -1,25 +1,23 @@
-{
-  config,
-  options,
-  lib,
-  pkgs,
-  ...
+{ config
+, options
+, lib
+, pkgs
+, ...
 }:
 with lib;
 with lib.my; let
-  cfg = config.modules.develop.clojure;
+  cfg = config.modules.develop.diagnostic;
   devCfg = config.modules.develop.xdg;
-in {
-  options.modules.develop.clojure = {
+in
+{
+  options.modules.develop.diagnostic = {
     enable = mkBoolOpt false;
   };
 
   config = mkMerge [
     (mkIf cfg.enable {
       user.packages = with pkgs; [
-        clojure
-        joker
-        leiningen
+        nodePackages.diagnostic-languageserver
       ];
     })
 

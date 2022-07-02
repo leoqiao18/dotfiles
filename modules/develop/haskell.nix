@@ -1,35 +1,31 @@
-{
-  config,
-  options,
-  lib,
-  pkgs,
-  ...
+{ config
+, options
+, lib
+, pkgs
+, ...
 }:
 with lib;
 with lib.my; let
   cfg = config.modules.develop.haskell;
   devCfg = config.modules.develop.xdg;
-in {
+in
+{
   options.modules.develop.haskell = {
     enable = mkBoolOpt false;
   };
 
   config = mkMerge [
     (mkIf cfg.enable {
-      user.packages = with pkgs;
-        [ghc]
-        ++ (with haskellPackages; [
-          cabal-install
-          haskell-language-server
-          hasktags
-          hoogle
-          hpack
-          stylish-haskell
-        ]);
-
-      home.programs.vscode.extensions = with pkgs.vscode-extensions; [
-        haskell.haskell
-        justusadam.language-haskell # syntax-highlighting
+      user.packages = with pkgs.haskellPackages; [
+        brittany
+        cabal-install
+        cabal2nix
+        ghc
+        haskell-language-server
+        hlint
+        hoogle
+        stack
+        nix-tree
       ];
     })
 

@@ -1,15 +1,15 @@
-{
-  config,
-  options,
-  lib,
-  pkgs,
-  ...
+{ config
+, options
+, lib
+, pkgs
+, ...
 }:
 with lib;
 with lib.my; let
   cfg = config.modules.develop.cc;
   devCfg = config.modules.develop.xdg;
-in {
+in
+{
   options.modules.develop.cc = {
     enable = mkBoolOpt false;
   };
@@ -17,15 +17,12 @@ in {
   config = mkMerge [
     (mkIf cfg.enable {
       user.packages = with pkgs; [
-        clang
-        bear
+        gcc
         gdb
+        gnumake
         cmake
-        llvmPackages.libcxx
-      ];
-
-      home.programs.vscode.extensions = with pkgs.vscode-extensions; [
-        ms-vscode.cpptools
+        ccls
+        bear
       ];
     })
 
