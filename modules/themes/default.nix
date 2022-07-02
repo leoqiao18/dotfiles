@@ -37,11 +37,7 @@ in
     gtk = {
       theme = mkOpt str "";
       iconTheme = mkOpt str "";
-      cursor = {
-        default = mkOpt str "left_ptr";
-        name = mkOpt str "";
-        size = mkOpt int "";
-      };
+      cursorTheme = mkOpt str "";
     };
 
     neovim.theme = mkOpt str "";
@@ -173,10 +169,8 @@ in
             "gtk-theme-name=${cfg.gtk.theme}"}
           ${optionalString (cfg.gtk.iconTheme != "")
             "gtk-icon-theme-name=${cfg.gtk.iconTheme}"}
-          ${optionalString (cfg.gtk.cursor.name != "")
-            "gtk-cursor-theme-name=${cfg.gtk.cursor.name}"}
-          ${optionalString (cfg.gtk.cursor.size != "")
-            "gtk-cursor-theme-size=${toString (cfg.gtk.cursor.size)}"}
+          ${optionalString (cfg.gtk.cursorTheme != "")
+            "gtk-cursor-theme-name=${cfg.gtk.cursorTheme}"}
           gtk-fallback-icon-theme=gnome
           gtk-application-prefer-dark-theme=true
           gtk-xft-hinting=1
@@ -201,10 +195,10 @@ in
       };
 
       # Force Qt to use GTK cursor theme
-      home.file.".icons/default/index.theme" = mkIf (cfg.gtk.cursor.name != "") {
+      home.file.".icons/default/index.theme" = mkIf (cfg.gtk.cursorTheme != "") {
         text = ''
           [icon theme]
-          Inherits=${cfg.gtk.cursor.name}
+          Inherits=${cfg.gtk.cursorTheme}
         '';
       };
 

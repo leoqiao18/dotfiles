@@ -1,8 +1,7 @@
-{
-  pkgs,
-  config,
-  lib,
-  ...
+{ pkgs
+, config
+, lib
+, ...
 }: {
   imports = [
     ../home.nix
@@ -11,7 +10,7 @@
 
   ## Modules
   modules.themes = {
-    active = "catppuccin";
+    active = "nord";
   };
 
   modules.desktop = {

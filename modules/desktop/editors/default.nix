@@ -23,29 +23,32 @@ in
       env.EDITOR = cfg.default;
     })
 
-    # (mkIf (cfg.default == "nvim" || cfg.default == "emacs") {
-    #   user.packages = with pkgs; [
-    #     imagemagick
-    #     editorconfig-core-c
-    #     sqlite
-    #
-    #     # module dependencies
-    #     ## checkers: aspell
-    #     (aspellWithDicts (dct:
-    #       with dct; [
-    #         en
-    #         en-computers
-    #         en-science
-    #       ]))
-    #
-    #     ## Markdown
-    #     nodePackages.markdownlint-cli2
-    #     vale
-    #
-    #     ## lsp: LaTeX + Org-Mode
-    #     tectonic
-    #     pandoc
-    #   ];
-    # })
+    (mkIf (cfg.default == "nvim" || cfg.default == "emacs") {
+      user.packages = with pkgs; [
+        fzf
+        gnumake
+        ripgrep
+        # imagemagick
+        # editorconfig-core-c
+        # sqlite
+        #
+        # # module dependencies
+        # ## checkers: aspell
+        # (aspellWithDicts (dct:
+        #   with dct; [
+        #     en
+        #     en-computers
+        #     en-science
+        #   ]))
+        #
+        # ## Markdown
+        # nodePackages.markdownlint-cli2
+        # vale
+        #
+        # ## lsp: LaTeX + Org-Mode
+        # tectonic
+        # pandoc
+      ];
+    })
   ];
 }

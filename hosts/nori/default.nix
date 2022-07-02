@@ -17,7 +17,7 @@
       networkManager.enable = true;
     };
 
-    themes.active = "catppuccin";
+    themes.active = "nord";
 
     desktop = {
       xmonad.enable = true;

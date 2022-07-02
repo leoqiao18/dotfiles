@@ -11,7 +11,7 @@ function M.config()
     },
   }
 
-  -- require("telescope").load_extension "fzf"
+  require("telescope").load_extension "fzf"
   require("telescope").load_extension "file_browser"
 end
 
@@ -20,7 +20,7 @@ function M.plug(use)
     "nvim-telescope/telescope.nvim",
     requires = {
       "nvim-lua/plenary.nvim",
-      -- { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
+      { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
       "nvim-telescope/telescope-file-browser.nvim",
     },
     config = function()

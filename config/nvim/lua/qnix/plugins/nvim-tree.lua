@@ -7,7 +7,6 @@ return {
       requires = { "kyazdani42/nvim-web-devicons" },
       config = function()
         require('nvim-tree').setup {
-          -- closes neovim automatically when the tree is the last **WINDOW** in the view
           hijack_netrw = false,
           sort_by = "name",
           diagnostics = {
@@ -20,7 +19,7 @@ return {
           },
         }
 
-        vim.g.nvim_tree_respect_buf_cwd = 1
+        -- vim.g.nvim_tree_respect_buf_cwd = 1
       end
     }
   end
