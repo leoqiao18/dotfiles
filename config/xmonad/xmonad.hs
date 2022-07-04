@@ -12,16 +12,17 @@ import           System.Exit
 import           XMonad
 import           XMonad.Actions.Navigation2D
 import           XMonad.Actions.Volume
-import           XMonad.Hooks.StatusBar
-import           XMonad.Hooks.StatusBar.PP
+import           XMonad.Hooks.DynamicLog
 import           XMonad.Hooks.EwmhDesktops
 import           XMonad.Hooks.ManageDocks
+import           XMonad.Hooks.ManageHelpers
+import           XMonad.Hooks.StatusBar
+import           XMonad.Hooks.StatusBar.PP
+import           XMonad.Layout.Spacing
 import           XMonad.Util.Dmenu             as DM
 import           XMonad.Util.EZConfig
-import           XMonad.Util.Run
-import           XMonad.Hooks.DynamicLog
-import           XMonad.Hooks.ManageHelpers
 import           XMonad.Util.Loggers
+import           XMonad.Util.Run
 
 import qualified Data.Map                      as M
 import qualified XMonad.StackSet               as W
@@ -50,11 +51,11 @@ myConfig =
   def { modMask            = mod4Mask -- <Super> key
       , terminal           = "kitty"
       , borderWidth        = 3
-      , normalBorderColor  = nord0
-      , focusedBorderColor = nord7
+      , normalBorderColor  = nord1
+      , focusedBorderColor = nord8
       , workspaces         = myWorkspaces
       , startupHook        = myStartupHook
-      , layoutHook         = myLayoutHook
+      , layoutHook         = spacingWithEdge 10 $ myLayoutHook
       , manageHook         = myManageHook
       , logHook            = myLogHook
       , handleEventHook    = myEventHook
@@ -84,17 +85,22 @@ myDmenuMap :: MonadIO m => M.Map String a -> m (Maybe a)
 myDmenuMap = DM.menuMapArgs "rofi" myDmenuArgs
 
 myXmobarPP :: PP
-myXmobarPP = def { ppSep             = nord10' " • "
+myXmobarPP = def { ppSep             = nord7' " • "
                  , ppTitleSanitize   = xmobarStrip
-                 , ppCurrent = wrap " " "" . xmobarBorder "Top" nord7 2
-                 , ppHidden          = nord6' . wrap " " ""
-                 , ppHiddenNoWindows = nord5' . wrap " " ""
+                 -- , ppCurrent = wrap " " "" . xmobarBorder "Top" nord7 2
+                 -- , ppCurrent = wrap " " "" . xmobarBorder "Bottom" nord8 2
+                 , ppCurrent = wrap " " "" . xmobarBorder "Top" nord8 2
+                 -- , ppHidden          = nord6' . wrap " " ""
+                 -- , ppHidden          = wrap " " "" . xmobarBorder "Top" nord9 2
+                 , ppHidden          = wrap " " ""
+                 -- , ppHiddenNoWindows = nord5' . wrap " " ""
+                 , ppHiddenNoWindows = nord3' . wrap " " ""
                  , ppUrgent          = nord11' . wrap (nord13' "!") (nord13' "!")
                  , ppOrder           = \[ws, l, _, wins] -> [ws, l, wins]
                  , ppExtras          = [logTitles formatFocused formatUnfocused]
                  }
  where
-  formatFocused   = wrap (nord6' "[") (nord6' "]") . nord7' . ppWindow
+  formatFocused   = wrap (nord5' "[") (nord5' "]") . nord8' . ppWindow
   formatUnfocused = wrap (nord5' "[") (nord5' "]") . nord9' . ppWindow
 
   -- | Windows should have *some* title, which should not not exceed a
@@ -102,10 +108,12 @@ myXmobarPP = def { ppSep             = nord10' " • "
   ppWindow :: String -> String
   ppWindow = xmobarRaw . (\w -> if null w then "untitled" else w) . shorten 30
 
-  nord5', nord6', nord9', nord11', nord13' :: String -> String
+  nord5', nord6', nord7', nord9', nord11', nord13' :: String -> String
+  nord3'    = xmobarColor nord3 ""
   nord5'    = xmobarColor nord5 ""
   nord6'    = xmobarColor nord6 ""
   nord7'    = xmobarColor nord7 ""
+  nord8'  = xmobarColor nord8 ""
   nord9'  = xmobarColor nord9 ""
   nord10'  = xmobarColor nord10 ""
   nord11'  = xmobarColor nord11 ""

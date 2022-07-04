@@ -30,7 +30,8 @@ in
 
     loginWallpaper = mkOpt (either path null) (
       if cfg.wallpaper != null
-      then toFilteredImage cfg.wallpaper "-gaussian-blur 0x2 -modulate 70 -level 5%"
+      # then toFilteredImage cfg.wallpaper "-gaussian-blur 0x2 -modulate 70 -level 5%"
+      then toFilteredImage cfg.wallpaper "-gaussian-blur 0x2"
       else null
     );
 
@@ -38,6 +39,11 @@ in
       theme = mkOpt str "";
       iconTheme = mkOpt str "";
       cursorTheme = mkOpt str "";
+      cursor = {
+        default = mkOpt str "left_ptr";
+        name = mkOpt str "";
+        size = mkOpt int "";
+      };
     };
 
     neovim.theme = mkOpt str "";
@@ -163,14 +169,16 @@ in
         '';
 
         # GTK
-        "gtk-3.0/settings.ini".text = ''
+        "gtk-3.0/settings.ini".text = with cfg.gtk; ''
           [Settings]
           ${optionalString (cfg.gtk.theme != "")
-            "gtk-theme-name=${cfg.gtk.theme}"}
+            "gtk-theme-name=${theme}"}
           ${optionalString (cfg.gtk.iconTheme != "")
-            "gtk-icon-theme-name=${cfg.gtk.iconTheme}"}
-          ${optionalString (cfg.gtk.cursorTheme != "")
-            "gtk-cursor-theme-name=${cfg.gtk.cursorTheme}"}
+            "gtk-icon-theme-name=${iconTheme}"}
+          ${optionalString (cfg.gtk.cursor.name != "")
+            "gtk-cursor-theme-name=${cursor.name}"}
+          ${optionalString (cfg.gtk.cursor.size != "")
+            "gtk-cursor-theme-size=${toString (cursor.size)}"}
           gtk-fallback-icon-theme=gnome
           gtk-application-prefer-dark-theme=true
           gtk-xft-hinting=1

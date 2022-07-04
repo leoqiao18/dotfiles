@@ -34,12 +34,15 @@ in
         gtk = {
           theme = "Nordic";
           iconTheme = "Paper";
-          cursorTheme = "Paper";
+          cursor = {
+            name = "Paper";
+            size = 24;
+          };
         };
 
         font = {
-          sans.family = "FiraCode Nerd Font";
-          mono.family = "FiraCode Nerd Font Mono";
+          sans.family = "Fira Sans";
+          mono.family = "FiraCode Nerd Font";
           emoji = "Twitter Color Emoji";
         };
         colors = {
@@ -62,9 +65,9 @@ in
           brightWhite = nord6;
 
           types = {
-            fg = nord5;
-            bg = nord2;
-            highlight = nord7;
+            fg = nord4;
+            bg = nord0;
+            highlight = "#fffacd";
           };
         };
       };
@@ -88,6 +91,8 @@ in
         # fira-code-symbols
 
         font-awesome
+        fira
+        twitter-color-emoji
 
         (nerdfonts.override {
           fonts = [
@@ -101,27 +106,27 @@ in
           {
             # Sourced from sessionCommands in modules/themes/default.nix
             "xtheme/90-theme".text = import ./config/Xresources cfg;
-            "fish/conf.d/catppuccin.fish".source =
-              ./config/fish/catppuccin.fish;
+            # "fish/conf.d/catppuccin.fish".source =
+            #   ./config/fish/catppuccin.fish;
           }
-          (mkIf (xmonad.enable || qtile.enable) {
-            "dunst/dunstrc".text = import ./config/dunst/dunstrc cfg;
-            "rofi" = {
-              source = ./config/rofi;
-              recursive = true;
-            };
-          })
-          (mkIf terminal.alacritty.enable {
-            "alacritty/config/catppuccin.yml".text =
-              import ./config/alacritty/catppuccin.yml cfg;
-          })
-          (mkIf terminal.kitty.enable {
-            "kitty/config/catppuccin.conf".text =
-              import ./config/kitty/catppuccin.conf cfg;
-          })
-          (mkIf media.viewer.document.enable {
-            "zathura/zathurarc".text = import ./config/zathura/zathurarc cfg;
-          })
+          # (mkIf (xmonad.enable || qtile.enable) {
+          #   "dunst/dunstrc".text = import ./config/dunst/dunstrc cfg;
+          #   "rofi" = {
+          #     source = ./config/rofi;
+          #     recursive = true;
+          #   };
+          # })
+          # (mkIf terminal.alacritty.enable {
+          #   "alacritty/config/catppuccin.yml".text =
+          #     import ./config/alacritty/catppuccin.yml cfg;
+          # })
+          # (mkIf terminal.kitty.enable {
+          #   "kitty/config/catppuccin.conf".text =
+          #     import ./config/kitty/catppuccin.conf cfg;
+          # })
+          # (mkIf media.viewer.document.enable {
+          #   "zathura/zathurarc".text = import ./config/zathura/zathurarc cfg;
+          # })
           # (mkIf media.editor.vector.enable {
           #   "inkscape/templates/default.svg".source =
           #     ./config/inkscape/default-template.svg;
@@ -131,18 +136,29 @@ in
 
     (mkIf (deskCfg.xmonad.enable) {
       services.xserver.displayManager = {
-        # sessionCommands = with cfg.gtk; ''
-        #   ${getExe pkgs.xorg.xsetroot} -xcf ${pkgs.bibata-cursors}/share/icons/${cursor.name}/cursors/${cursor.default} ${
-        #     toString (cursor.size)
-        #   }
-        # '';
+        sessionCommands = with cfg.gtk; ''
+          ${getExe pkgs.xorg.xsetroot} -xcf ${pkgs.paper-icon-theme}/share/icons/${cursor.name}/cursors/${cursor.default} ${
+            toString (cursor.size)
+          }
+        '';
 
         # LightDM: Replace with LightDM-Web-Greeter theme
         lightdm.greeters.mini.extraConfig = ''
-          text-color = "${cfg.colors.magenta}"
-          password-background-color = "${cfg.colors.black}"
-          window-color = "${cfg.colors.types.border}"
+          font = "${cfg.font.mono.family}"
+          font-size = 15px
+          
+          text-color = "${cfg.colors.types.fg}"
+          error-color = "${cfg.colors.red}"
+          password-color = "${cfg.colors.types.fg}"
+
+          background-color = "${cfg.colors.types.bg}"
+          password-background-color = "${cfg.colors.types.bg}"
+
+          window-color = "${cfg.colors.types.bg}"
           border-color = "${cfg.colors.types.border}"
+
+          border-width = 0
+          password-border-width = 0
         '';
       };
 

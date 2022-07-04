@@ -9,12 +9,10 @@ with lib.my; let
   cfg = config.modules.desktop;
 in
 {
-  config = mkIf (cfg.xmonad.enable || cfg.qtile.enable) {
-    # TODO: after wintypes merge -> home-manager
+  config = mkIf (cfg.xmonad.enable) {
     services.picom = {
       enable = true;
       backend = "glx";
-      # experimentalBackends = true;
       vSync = true;
       #
       # menuOpacity = 0.9;

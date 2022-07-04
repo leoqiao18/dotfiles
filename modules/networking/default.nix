@@ -7,6 +7,7 @@
 with lib;
 with lib.my; let
   cfg = config.modules.networking;
+  configDir = "${config.dotfiles.configDir}";
 in
 {
   options.modules.networking = {
@@ -27,6 +28,15 @@ in
       networking.networkmanager = {
         enable = mkDefault true;
         # wifi.backend = "iwd";
+      };
+
+      user.packages = with pkgs; [
+        networkmanager_dmenu
+      ];
+
+      home.configFile."networkmanager-dmenu" = {
+        source = "${configDir}/networkmanager-dmenu";
+        recursive = true;
       };
     })
 

@@ -1,19 +1,20 @@
-{
-  options,
-  config,
-  lib,
-  pkgs,
-  ...
+{ options
+, config
+, lib
+, pkgs
+, ...
 }:
 with lib;
 with lib.my; let
   cfg = config.modules.desktop;
-in {
+  rofiDir = "${config.dotfiles.configDir}/rofi";
+in
+{
   options.modules.desktop.extra.rofi = {
     enable = mkBoolOpt false;
   };
 
-  config = mkIf (cfg.xmonad.enable || cfg.qtile.enable) {
+  config = mkIf (cfg.xmonad.enable) {
     user.packages = with pkgs; [
       rofi-systemd
 
@@ -30,5 +31,10 @@ in {
       #   exec = "${config.dotfiles.binDir}/zzz";
       # })
     ];
+
+    home.configFile."rofi" = {
+      source = "${rofiDir}";
+      recursive = true;
+    };
   };
 }
