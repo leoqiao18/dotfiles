@@ -78,9 +78,10 @@ inputbar {
     padding: 11px;
     background-color: #3b4252;
 
-    border: 1px;
+    border: 3px;
     border-radius:  6px 6px 0px 0px;
-    border-color: @nord10;
+    /* border-color: @nord10; */
+    border-color: @nord8;
 }
 
 entry, prompt, case-indicator {
@@ -95,8 +96,9 @@ prompt {
 listview {
     padding: 8px;
     border-radius: 0px 0px 6px 6px;
-    border-color: @nord10;
-    border: 0px 1px 1px 1px;
+    /* border-color: @nord10; */
+    border-color: @nord8;
+    border: 0px 3px 3px 3px;
     /* background-color: rgba(46,52,64,0.9); */
     background-color: rgb(46,52,64);
     dynamic: false;

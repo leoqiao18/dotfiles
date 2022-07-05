@@ -58,15 +58,15 @@ in
     font = {
       mono = {
         family = mkOpt str "";
-        weight = mkOpt str "SemiBold";
+        weight = mkOpt str "Regular";
         weightNum = mkOpt str "600";
-        size = mkOpt int 13;
+        size = mkOpt int 12;
       };
       sans = {
         family = mkOpt str "";
-        weight = mkOpt str "SemiBold";
+        weight = mkOpt str "Regular";
         weightNum = mkOpt str "600";
-        size = mkOpt int 10;
+        size = mkOpt int 12;
       };
       emoji = mkOpt str "";
     };

@@ -10,6 +10,7 @@
       audio.enable = true;
       bluetooth.enable = true;
       logitech.enable = true;
+      nvidia.enable = true;
     };
 
     networking = {

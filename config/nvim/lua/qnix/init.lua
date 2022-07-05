@@ -12,25 +12,23 @@ end
 
 --- Ensure Packer is installed, and use it to setup my plugins.
 function M.setup_plugins()
-  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+  local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
   if fn.empty(fn.glob(install_path)) > 0 then
-    packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+    packer_bootstrap = fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
   end
 
   return require('packer').startup(function(use)
-    use { "wbthomason/packer.nvim", opt = true }
+    use { "wbthomason/packer.nvim" }
     use { "lewis6991/impatient.nvim" }
 
     -- Automatically require any plugin module in ~/.config/nvim/lua/qnix/plugins/
-      for _, p in
-        ipairs(
-          fn.split(fn.glob((fn.stdpath "config") .. "/lua/qnix/plugins/*"))
-        )
-      do
-        p = fn.substitute(p, "^.*/", "", "")
-        p = fn.substitute(p, "\\.lua$", "", "")
-        require("qnix.plugins." .. p).plug(use)
-      end
+    for _, p in ipairs(
+      fn.split(fn.glob((fn.stdpath "config") .. "/lua/qnix/plugins/*"))
+    ) do
+      p = fn.substitute(p, "^.*/", "", "")
+      p = fn.substitute(p, "\\.lua$", "", "")
+      require("qnix.plugins." .. p).plug(use)
+    end
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins

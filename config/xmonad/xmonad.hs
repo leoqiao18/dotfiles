@@ -86,7 +86,8 @@ myDmenuMap = DM.menuMapArgs "rofi" myDmenuArgs
 
 myXmobarPP :: PP
 myXmobarPP = def { ppSep             = nord7' " • "
-                 , ppTitleSanitize   = xmobarStrip
+                 , ppTitle           = const ""
+                 -- , ppTitleSanitize   = xmobarStrip
                  -- , ppCurrent = wrap " " "" . xmobarBorder "Top" nord7 2
                  -- , ppCurrent = wrap " " "" . xmobarBorder "Bottom" nord8 2
                  , ppCurrent = wrap " " "" . xmobarBorder "Top" nord8 2
@@ -96,12 +97,12 @@ myXmobarPP = def { ppSep             = nord7' " • "
                  -- , ppHiddenNoWindows = nord5' . wrap " " ""
                  , ppHiddenNoWindows = nord3' . wrap " " ""
                  , ppUrgent          = nord11' . wrap (nord13' "!") (nord13' "!")
-                 , ppOrder           = \[ws, l, _, wins] -> [ws, l, wins]
-                 , ppExtras          = [logTitles formatFocused formatUnfocused]
+                 , ppOrder           = \(ws:l:_) -> [ws, l]
+                 -- , ppExtras          = [logTitles formatFocused formatUnfocused]
                  }
  where
-  formatFocused   = wrap (nord5' "[") (nord5' "]") . nord8' . ppWindow
-  formatUnfocused = wrap (nord5' "[") (nord5' "]") . nord9' . ppWindow
+  -- formatFocused   = wrap (nord5' "[") (nord5' "]") . nord8' . ppWindow
+  -- formatUnfocused = wrap (nord5' "[") (nord5' "]") . nord9' . ppWindow
 
   -- | Windows should have *some* title, which should not not exceed a
   -- sane length.

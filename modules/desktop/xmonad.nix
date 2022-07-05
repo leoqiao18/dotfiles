@@ -43,8 +43,8 @@ in
           greeters.mini.enable = true;
         };
         sessionCommands = ''
-                    ${getExe pkgs.autorandr} -c
-          	'';
+          ${getExe pkgs.autorandr} -c
+        '';
       };
       windowManager.xmonad = {
         enable = true;

@@ -9,7 +9,6 @@ with lib.my; let
   cfg = config.modules.desktop;
 in
 {
-  # config = mkIf cfg.gnome.enable {
   config = mkIf cfg.xmonad.enable {
     i18n.inputMethod = {
       enabled = "ibus";
@@ -30,5 +29,9 @@ in
         GLFW_IM_MODULE = "ibus";
       })
     ];
+
+    services.xserver.displayManager.sessionCommands = ''
+      ibus-daemon -d
+    '';
   };
 }
