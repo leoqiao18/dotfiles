@@ -31,8 +31,8 @@
         neovim.enable = true;
       };
       browsers = {
-        default = "chromium";
-        # brave.enable = true;
+        default = "qutebrowser";
+        qutebrowser.enable = true;
         firefox.enable = true;
         chromium.enable = true;
       };
