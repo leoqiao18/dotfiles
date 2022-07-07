@@ -31,16 +31,10 @@ in
       # python39Packages.adblock
     ];
 
-    # home = {
-    #   configFile = {
-    #     "qutebrowser" = {
-    #       source = "${configDir}/qutebrowser";
-    #       recursive = true;
-    #     };
-    #     "qutebrowser/extra/00-extraConfig.py".text = cfg.extraConfig;
-    #   };
-    #   dataFile."qutebrowser/userstyles.css".text = cfg.userStyles;
-    # };
+    home.configFile."qutebrowser" = {
+      source = "${configDir}/qutebrowser";
+      recursive = true;
+    };
 
     # Install language dictionaries for spellcheck backends
     # system.userActivationScripts.qutebrowserInstallDicts =
