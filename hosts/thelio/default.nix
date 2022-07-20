@@ -29,6 +29,7 @@
       editors = {
         default = "nvim";
         neovim.enable = true;
+        emacs.enable = true;
       };
       browsers = {
         default = "qutebrowser";
@@ -41,9 +42,9 @@
           common.enable = true;
         };
         viewer = {
-          # video.enable = true;
+          video.enable = true;
           music.enable = true;
-          # document.enable = true;
+          document.enable = true;
         };
       };
       extra = {

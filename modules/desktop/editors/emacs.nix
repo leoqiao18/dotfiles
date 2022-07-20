@@ -12,11 +12,11 @@ in
 {
   options.modules.desktop.editors.emacs = {
     enable = mkBoolOpt false;
-    doom = rec {
-      enable = mkBoolOpt false;
-      forgeUrl = mkOpt types.str "https://github.com";
-      repoUrl = mkOpt types.str "${forgeUrl}/doomemacs/doomemacs";
-      configRepoUrl = mkOpt types.str "${forgeUrl}/icy-thought/emacs.d";
+    doom = {
+      # enable = mkBoolOpt false;
+      # forgeUrl = mkOpt types.str "https://github.com";
+      # repoUrl = mkOpt types.str "${forgeUrl}/doomemacs/doomemacs";
+      repoUrl = mkOpt types.str "https://github.com/doomemacs/doomemacs";
     };
   };
 
@@ -24,20 +24,47 @@ in
     nixpkgs.overlays = with inputs; [ emacs.overlay ];
 
     home.services.emacs = {
-      enable = true;
-      client.enable = true;
+      enable = true; # systemd Emacs service
+      socketActivation.enable = true; # systemd socket activation for the Emacs service
+      client.enable = true; # generation of Emacs client desktop file
     };
 
     home.programs.emacs = {
       enable = true;
-      package = pkgs.emacsNativeComp;
+      package = pkgs.emacsPgtkNativeComp;
       extraPackages = epkgs: with epkgs; [ vterm ];
     };
 
     user.packages = with pkgs; [
-      binutils
+      # Emacs itself
+      binutils # native-comp needs 'as', provided by this
+      # ((emacsPackagesFor emacsPgtkNativeComp).emacsWithPackages (epkgs: [
+      #   epkgs.vterm
+      # ]))
+
+      # Doom dependencies
+      git
+      ripgrep
       gnutls
+
+      # Optional dependencies
+      fd
+      imagemagick
       zstd
+
+      # Module dependencies
+      # checkers spell
+      (aspellWithDicts (ds: with ds; [
+        en
+        en-computers
+        en-science
+      ]))
+      # :tools editorconfig
+      editorconfig-core-c
+      # :tools lookup & :lang org +roam
+      sqlite
+      # :lang latex & :lang ord (latex previews)
+      # texlive.combined.scheme-medium
     ];
 
     # Fonts -> icons + ligatures when specified:
@@ -48,22 +75,31 @@ in
 
     environment.variables = {
       EMACSDIR = "$XDG_CONFIG_HOME/emacs";
-      DOOMDIR = "${configDir}/emacs.d/doom-emacs";
+      DOOMDIR = "$XDG_CONFIG_HOME/doom";
     };
 
-    system.userActivationScripts = mkIf cfg.doom.enable {
-      installDoomEmacs = ''
+    home.configFile."doom" = {
+      source = "${configDir}/doom";
+      recursive = true;
+      onChange = ''
         if [ ! -d "$XDG_CONFIG_HOME/emacs" ]; then
-           git clone --depth=1 --single-branch "${cfg.doom.repoUrl}" "$XDG_CONFIG_HOME/emacs"
-           git clone "${cfg.doom.configRepoUrl}" "$XDG_CONFIG_HOME/doom"
+          git clone --depth=1 --single-branch "${cfg.doom.repoUrl}" "$XDG_CONFIG_HOME/emacs"
         fi
       '';
     };
 
+    # system.userActivationScripts = mkIf cfg.doom.enable {
+    #   installDoomEmacs = ''
+    #     if [ ! -d "${config.user.home}/.config/emacs" ]; then
+    #        ${pkgs.git} clone --depth=1 --single-branch "${cfg.doom.repoUrl}" "${config.user.home}/.config/emacs"
+    #     fi
+    #   '';
+    # };
+
     # Easier frame creation (fish)
-    home.programs.fish.functions = {
-      eg = "emacs --create-frame $argv & disown";
-      ecg = "emacsclient --create-frame $argv & disown";
-    };
+    # home.programs.fish.functions = {
+    #   eg = "emacs --create-frame $argv & disown";
+    #   ecg = "emacsclient --create-frame $argv & disown";
+    # };
   };
 }

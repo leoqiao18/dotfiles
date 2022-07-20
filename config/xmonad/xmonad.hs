@@ -10,7 +10,7 @@
 import           Data.Monoid
 import           System.Exit
 import           XMonad
-import           XMonad.Actions.Navigation2D
+-- import           XMonad.Actions.Navigation2D
 import           XMonad.Actions.Volume
 import           XMonad.Hooks.DynamicLog
 import           XMonad.Hooks.EwmhDesktops
@@ -19,6 +19,9 @@ import           XMonad.Hooks.ManageHelpers
 import           XMonad.Hooks.StatusBar
 import           XMonad.Hooks.StatusBar.PP
 import           XMonad.Layout.Spacing
+import           XMonad.Layout.Grid
+import           XMonad.Layout.ThreeColumns
+import           XMonad.Layout.MultiColumns
 import           XMonad.Util.Dmenu             as DM
 import           XMonad.Util.EZConfig
 import           XMonad.Util.Loggers
@@ -46,6 +49,11 @@ nord13 = "#ebcb8b"
 nord14 = "#a3be8c"
 nord15 = "#b48ead"
 
+myEmacs :: String
+myEmacs = "emacsclient -c -a 'emacs'"
+
+myEmacsEval :: String -> String
+myEmacsEval e = myEmacs ++ " --eval '" ++ e ++ "'"
 
 myConfig =
   def { modMask            = mod4Mask -- <Super> key
@@ -67,8 +75,8 @@ main =
   xmonad
     $ docks
     . ewmh
-    . withEasySB (statusBarProp "xmobar" (pure myXmobarPP)) defToggleStrutsKey
-    . withNavigation2DConfig def
+    . withSB (statusBarProp "xmobar" (pure myXmobarPP))
+    -- . withNavigation2DConfig def
     $ myConfig
 
 -- App launcher: using rofi over dmenu
@@ -143,9 +151,6 @@ myKeys =
   , ("M-S-r"                 , spawn "xmonad --restart")
   , ("M-S-q"                 , io exitSuccess)
 
-  -- Terminal
-  , ("M-<Return>"            , spawn "kitty")
-
   -- Window kill
   , ("M-S-c"                 , kill)
   -- , ("M-S-a"                 , killAll)
@@ -158,7 +163,18 @@ myKeys =
   -- , ("M-j"                   , windowGo D False)
   -- , ("M-k"                   , windowGo U False)
   -- , ("M-l"                   , windowGo R False)
-  , ("M-b"                   , sendMessage ToggleStruts)
+
+  -- Favorite programs
+  , ("M-<Return>"            , spawn "kitty")
+  , ("M-b", spawn "qutebrowser")
+
+  -- Emacs (SUPER-e followed by a key)
+  , ("M-e e", spawn myEmacs)
+  , ("M-e d", spawn $ myEmacsEval "(dired nil)")
+  , ("M-e b", spawn $ myEmacsEval "(ibuffer)")
+  , ("M-e v", spawn $ myEmacsEval "(+vterm/here nil)")
+
+  -- Multimedia keys
   --, ("<XF86AudioMute>", spawn "amixer set Master toggle")
   --, ("<XF86AudioLowerVolume>", spawn "amixer set Master 5%- unmute")
   --, ("<XF86AudioRaiseVolume>", spawn "amixer set Master 5%+ unmute")
@@ -294,11 +310,12 @@ myMouseBindings (XConfig { XMonad.modMask = modm }) =
 -- The available layouts.  Note that each layout is separated by |||,
 -- which denotes layout choice.
 --
-myLayoutHook = avoidStruts (tiled ||| Mirror tiled ||| Full)
+myLayoutHook = avoidStruts (   Tall nmaster delta ratio
+                           ||| ThreeColMid nmaster delta ratio
+                           ||| Grid
+                           ||| multiCol [1] 1 0.01 (-0.5)
+                           ||| Full)
  where
-     -- default tiling algorithm partitions the screen into two panes
-  tiled   = Tall nmaster delta ratio
-
   -- The default number of windows in the master pane
   nmaster = 1
 

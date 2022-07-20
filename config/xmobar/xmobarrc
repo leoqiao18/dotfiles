@@ -10,7 +10,8 @@ Config {
 
    , sepChar =  "%"   -- delineator between plugin names and straight text
    , alignSep = "}{"  -- separator between left-right alignment
-   , template = "%XMonadLog% } { %multicpu%  %memory%  %kbd%  %default:Master%  %date%  %time%  %battery% "
+   , template = "%XMonadLog% } %time% { %multicpu%  %memory%  %kbd%  %date%  %battery% "
+ -- %default:Master%
 
    , commands = 
         [ Run MultiCpu       [ "--template" , "<fn=1>\xf2db</fn> <total>%"

@@ -4,6 +4,7 @@ vim.g.mapleader = ' '
 -- some basic vim options
 require("qnix.basics").setup()
 
+
 -- special settings for different file types
 require("qnix.ft").setup()
 

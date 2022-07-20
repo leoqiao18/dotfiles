@@ -1,18 +1,11 @@
-{ config
-, options
-, lib
-, pkgs
-, ...
-}:
+{ config, options, lib, pkgs, ... }:
 with lib;
-with lib.my; let
+with lib.my;
+let
   cfg = config.modules.develop.haskell;
   devCfg = config.modules.develop.xdg;
-in
-{
-  options.modules.develop.haskell = {
-    enable = mkBoolOpt false;
-  };
+in {
+  options.modules.develop.haskell = { enable = mkBoolOpt false; };
 
   config = mkMerge [
     (mkIf cfg.enable {
@@ -21,6 +14,7 @@ in
         cabal-install
         cabal2nix
         ghc
+        ghcide
         haskell-language-server
         hlint
         hoogle
