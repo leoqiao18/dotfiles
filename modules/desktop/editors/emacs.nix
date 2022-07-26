@@ -1,15 +1,10 @@
-{ config
-, lib
-, pkgs
-, inputs
-, ...
-}:
+{ config, lib, pkgs, inputs, ... }:
 with lib;
-with lib.my; let
+with lib.my;
+let
   cfg = config.modules.desktop.editors.emacs;
   configDir = config.dotfiles.configDir;
-in
-{
+in {
   options.modules.desktop.editors.emacs = {
     enable = mkBoolOpt false;
     doom = {
@@ -25,7 +20,7 @@ in
 
     home.services.emacs = {
       enable = true; # systemd Emacs service
-      socketActivation.enable = true; # systemd socket activation for the Emacs service
+      # socketActivation.enable = true; # systemd socket activation for the Emacs service
       client.enable = true; # generation of Emacs client desktop file
     };
 
@@ -54,11 +49,7 @@ in
 
       # Module dependencies
       # checkers spell
-      (aspellWithDicts (ds: with ds; [
-        en
-        en-computers
-        en-science
-      ]))
+      (aspellWithDicts (ds: with ds; [ en en-computers en-science ]))
       # :tools editorconfig
       editorconfig-core-c
       # :tools lookup & :lang org +roam

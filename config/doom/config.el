@@ -75,7 +75,18 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
+;; :ui doom-dashboard
+(setq fancy-splash-image (concat doom-private-dir "splash-400.png"))
+
+;; :lang haskell
 (after! lsp-haskell
   (setq lsp-haskell-formatting-provider "brittany"))
 
-(setq fancy-splash-image (concat doom-private-dir "splash-400.png"))
+;; :lang org
+(setq +org-roam-auto-backlinks-buffer t
+      org-directory "~/projects/org/"
+      org-roam-directory org-directory
+      org-roam-db-location (concat org-directory ".org-roam.db")
+      org-roam-dailies-directory "journal/"
+      org-archive-location (concat org-directory ".archive/%s::")
+      org-agenda-files (list (concat org-roam-directory org-roam-dailies-directory)))

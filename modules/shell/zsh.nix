@@ -1,24 +1,16 @@
-{ config
-, options
-, lib
-, pkgs
-, ...
-}:
+{ config, options, lib, pkgs, ... }:
 with lib;
-with lib.my; let
+with lib.my;
+let
   cfg = config.modules.shell;
   zshCfg = "${config.dotfiles.configDir}/zsh";
-in
-{
-  options.modules.shell.zsh = {
-    enable = mkBoolOpt false;
-  };
+in {
+  options.modules.shell.zsh = { enable = mkBoolOpt false; };
 
   config = mkIf cfg.zsh.enable {
-    user.packages = with pkgs; [
-      any-nix-shell
-      fzf
-    ];
+    home.services.lorri.enable = true;
+
+    user.packages = with pkgs; [ any-nix-shell direnv fzf ];
 
     programs.zsh.enable = true;
 
@@ -27,10 +19,8 @@ in
       enableCompletion = true;
       enableSyntaxHighlighting = true;
       shellAliases = {
-        
-      } // mkIf config.programs.tmux.enable {
-        mux = "tmuxinator";
-      };
+
+      } // mkIf config.programs.tmux.enable { mux = "tmuxinator"; };
       # history = {
       #   size = 10000;
       #   path = "${config.xdg.dataHome}/zsh/history";
