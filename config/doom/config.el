@@ -75,6 +75,9 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
+;; disable quit message
+(setq confirm-kill-emacs nil)
+
 ;; :ui doom-dashboard
 (setq fancy-splash-image (concat doom-private-dir "splash-400.png"))
 
