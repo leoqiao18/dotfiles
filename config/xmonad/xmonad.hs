@@ -170,8 +170,10 @@ myKeys =
 
   -- Emacs (SUPER-e followed by a key)
   , ("M-e e", spawn myEmacs)
-  , ("M-e d", spawn $ myEmacsEval "(dired nil)")
+  , ("M-e a", spawn $ myEmacsEval "(org-todo-list)")
   , ("M-e b", spawn $ myEmacsEval "(ibuffer)")
+  , ("M-e d", spawn $ myEmacsEval "(dired nil)")
+  , ("M-e t", spawn $ myEmacsEval "(org-roam-dailies-capture-today)")
   , ("M-e v", spawn $ myEmacsEval "(+vterm/here nil)")
 
   -- Multimedia keys

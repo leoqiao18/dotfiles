@@ -1,8 +1,4 @@
-{ pkgs
-, config
-, lib
-, ...
-}: {
+{ pkgs, config, lib, ... }: {
   imports = [ ./hardware-configuration.nix ];
 
   modules = {
@@ -11,6 +7,7 @@
       bluetooth.enable = true;
       logitech.enable = true;
       nvidia.enable = true;
+      printer.enable = true;
     };
 
     networking = {
@@ -38,18 +35,14 @@
         chromium.enable = true;
       };
       media = {
-        social = {
-          common.enable = true;
-        };
+        social = { common.enable = true; };
         viewer = {
           video.enable = true;
           music.enable = true;
           document.enable = true;
         };
       };
-      extra = {
-        dunst.enable = true;
-      };
+      extra = { dunst.enable = true; };
       # virtual.wine.enable = true;
     };
 

@@ -1,11 +1,7 @@
-{ options
-, config
-, lib
-, pkgs
-, ...
-}:
+{ options, config, lib, pkgs, ... }:
 with lib;
-with lib.my; let
+with lib.my;
+let
   cfg = config.modules.themes;
   deskCfg = config.modules.desktop;
   nord0 = "#2e3440";
@@ -24,8 +20,7 @@ with lib.my; let
   nord13 = "#ebcb8b";
   nord14 = "#a3be8c";
   nord15 = "#b48ead";
-in
-{
+in {
   config = mkIf (cfg.active == "nord") (mkMerge [
     {
       modules.themes = {
@@ -42,7 +37,7 @@ in
 
         font = {
           sans.family = "Fira Sans";
-          mono.family = "FiraCode Nerd Font";
+          mono.family = "JetBrainsMono Nerd Font";
           emoji = "Twitter Color Emoji";
         };
         colors = {
@@ -80,10 +75,7 @@ in
 
     # Desktop (X11) theming <- Change after gnome = independent of xserver.
     (mkIf config.services.xserver.enable {
-      user.packages = with pkgs; [
-        nordic
-        paper-icon-theme
-      ];
+      user.packages = with pkgs; [ nordic paper-icon-theme ];
 
       fonts.fonts = with pkgs; [
         # iosevka
@@ -94,50 +86,47 @@ in
         fira
         twitter-color-emoji
 
-        (nerdfonts.override {
-          fonts = [
-            "FiraCode"
-          ];
-        })
+        (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
       ];
 
       home.configFile = with deskCfg;
-        mkMerge [
-          {
-            # Sourced from sessionCommands in modules/themes/default.nix
-            "xtheme/90-theme".text = import ./config/Xresources cfg;
-            # "fish/conf.d/catppuccin.fish".source =
-            #   ./config/fish/catppuccin.fish;
-          }
-          # (mkIf (xmonad.enable || qtile.enable) {
-          #   "dunst/dunstrc".text = import ./config/dunst/dunstrc cfg;
-          #   "rofi" = {
-          #     source = ./config/rofi;
-          #     recursive = true;
-          #   };
-          # })
-          # (mkIf terminal.alacritty.enable {
-          #   "alacritty/config/catppuccin.yml".text =
-          #     import ./config/alacritty/catppuccin.yml cfg;
-          # })
-          # (mkIf terminal.kitty.enable {
-          #   "kitty/config/catppuccin.conf".text =
-          #     import ./config/kitty/catppuccin.conf cfg;
-          # })
-          # (mkIf media.viewer.document.enable {
-          #   "zathura/zathurarc".text = import ./config/zathura/zathurarc cfg;
-          # })
-          # (mkIf media.editor.vector.enable {
-          #   "inkscape/templates/default.svg".source =
-          #     ./config/inkscape/default-template.svg;
-          # })
+        mkMerge [{
+          # Sourced from sessionCommands in modules/themes/default.nix
+          "xtheme/90-theme".text = import ./config/Xresources cfg;
+          # "fish/conf.d/catppuccin.fish".source =
+          #   ./config/fish/catppuccin.fish;
+        }
+        # (mkIf (xmonad.enable || qtile.enable) {
+        #   "dunst/dunstrc".text = import ./config/dunst/dunstrc cfg;
+        #   "rofi" = {
+        #     source = ./config/rofi;
+        #     recursive = true;
+        #   };
+        # })
+        # (mkIf terminal.alacritty.enable {
+        #   "alacritty/config/catppuccin.yml".text =
+        #     import ./config/alacritty/catppuccin.yml cfg;
+        # })
+        # (mkIf terminal.kitty.enable {
+        #   "kitty/config/catppuccin.conf".text =
+        #     import ./config/kitty/catppuccin.conf cfg;
+        # })
+        # (mkIf media.viewer.document.enable {
+        #   "zathura/zathurarc".text = import ./config/zathura/zathurarc cfg;
+        # })
+        # (mkIf media.editor.vector.enable {
+        #   "inkscape/templates/default.svg".source =
+        #     ./config/inkscape/default-template.svg;
+        # })
         ];
     })
 
     (mkIf (deskCfg.xmonad.enable) {
       services.xserver.displayManager = {
         sessionCommands = with cfg.gtk; ''
-          ${getExe pkgs.xorg.xsetroot} -xcf ${pkgs.paper-icon-theme}/share/icons/${cursor.name}/cursors/${cursor.default} ${
+          ${
+            getExe pkgs.xorg.xsetroot
+          } -xcf ${pkgs.paper-icon-theme}/share/icons/${cursor.name}/cursors/${cursor.default} ${
             toString (cursor.size)
           }
         '';
@@ -146,7 +135,7 @@ in
         lightdm.greeters.mini.extraConfig = ''
           font = "${cfg.font.mono.family}"
           font-size = 15px
-          
+
           text-color = "${cfg.colors.types.fg}"
           error-color = "${cfg.colors.red}"
           password-color = "${cfg.colors.types.fg}"

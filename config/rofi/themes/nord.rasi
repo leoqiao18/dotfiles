@@ -1,6 +1,6 @@
 configuration {
 
-  font: "FiraCode Nerd Font 15";
+  font: "JetBrainsMono Nerd Font 15";
 	/* width: 30; */
 	line-margin: 10;
 	lines: 6;

@@ -1,5 +1,5 @@
 Config { 
-     font =         "xft:FiraCode Nerd Font:size=12:antialias=true"
+     font =         "xft:JetBrainsMono Nerd Font:size=12:antialias=true"
      additionalFonts = [ "xft:Font Awesome 6 Free Solid:pixelsize=12"
                        , "xft:Font Awesome 6 Brands:pixelsize=12"]
    , bgColor =      "#2e3440"

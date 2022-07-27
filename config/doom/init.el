@@ -44,7 +44,7 @@
        ophints           ; highlight the region an operation acts on
        (popup +defaults)   ; tame sudden yet inevitable temporary windows
        ;;tabs              ; a tab bar for Emacs
-       treemacs          ; a project drawer, like neotree but cooler
+       (treemacs +treemacs-git-mode)          ; a project drawer, like neotree but cooler
        unicode           ; extended unicode support for various languages
        vc-gutter         ; vcs diff in the fringe
        vi-tilde-fringe   ; fringe tildes to mark beyond EOB
@@ -155,6 +155,7 @@
        ;;ocaml             ; an objective camel
        (org
         +dragndrop
+        +pretty
         +roam2)               ; organize your plain life in plain text
        ;;php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
@@ -194,3 +195,6 @@
        :config
        ;;literate
        (default +bindings +smartparens))
+
+;; respect text wrapping
+(setq evil-respect-visual-line-mode t)
