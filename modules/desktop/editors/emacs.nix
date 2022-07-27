@@ -27,6 +27,7 @@ in {
     home.programs.emacs = {
       enable = true;
       package = pkgs.emacsPgtkNativeComp;
+      # extraPackages = epkgs: with epkgs; [ vterm pdf-tools org-pdftools ];
       extraPackages = epkgs: with epkgs; [ vterm ];
     };
 
