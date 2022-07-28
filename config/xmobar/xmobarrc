@@ -31,9 +31,9 @@ Config {
         , Run Battery        [ "--template" , "<fn=1>\xf241</fn> <acstatus>"
                              , "--Low"      , "10"        -- units: %
                              , "--High"     , "80"        -- units: %
-                             , "--low"      , "#a3be8c"
+                             , "--low"     , "#bf616a"
                              , "--normal"   , "#ebcb8b"
-                             , "--high"     , "#bf616a"
+                             , "--high"      , "#a3be8c"
 
                              , "--" -- battery specific options
                              -- discharging status

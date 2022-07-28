@@ -60,13 +60,13 @@ in
         family = mkOpt str "";
         weight = mkOpt str "Regular";
         weightNum = mkOpt str "600";
-        size = mkOpt int 12;
+        size = mkOpt int 15;
       };
       sans = {
         family = mkOpt str "";
         weight = mkOpt str "Regular";
         weightNum = mkOpt str "600";
-        size = mkOpt int 12;
+        size = mkOpt int 15;
       };
       emoji = mkOpt str "";
     };
