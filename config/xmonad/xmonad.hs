@@ -94,7 +94,7 @@ myDmenuMap = DM.menuMapArgs "rofi" myDmenuArgs
 
 myXmobarPP :: PP
 myXmobarPP = def { ppSep             = nord7' " • "
-                 , ppTitle           = const ""
+                 , ppTitle           = shorten 40
                  -- , ppTitleSanitize   = xmobarStrip
                  -- , ppCurrent = wrap " " "" . xmobarBorder "Top" nord7 2
                  -- , ppCurrent = wrap " " "" . xmobarBorder "Bottom" nord8 2
@@ -105,7 +105,7 @@ myXmobarPP = def { ppSep             = nord7' " • "
                  -- , ppHiddenNoWindows = nord5' . wrap " " ""
                  , ppHiddenNoWindows = nord3' . wrap " " ""
                  , ppUrgent          = nord11' . wrap (nord13' "!") (nord13' "!")
-                 , ppOrder           = \(ws:l:_) -> [ws, l]
+                 , ppOrder           = \(ws:l:t:_) -> [ws, l, t]
                  -- , ppExtras          = [logTitles formatFocused formatUnfocused]
                  }
  where
