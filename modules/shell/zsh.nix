@@ -10,7 +10,7 @@ in {
   config = mkIf cfg.zsh.enable {
     home.services.lorri.enable = true;
 
-    user.packages = with pkgs; [ any-nix-shell direnv fzf ];
+    user.packages = with pkgs; [ any-nix-shell direnv fzf tldr ];
 
     programs.zsh.enable = true;
 
