@@ -1,26 +1,23 @@
-{ config
-, options
-, lib
-, pkgs
-, ...
-}:
+{ config, options, lib, pkgs, ... }:
 with lib;
-with lib.my; let
+with lib.my;
+let
   cfg = config.modules.develop.ocaml;
   devCfg = config.modules.develop.xdg;
-in
-{
-  options.modules.develop.ocaml = {
-    enable = mkBoolOpt false;
-  };
+in {
+  options.modules.develop.ocaml = { enable = mkBoolOpt false; };
 
   config = mkMerge [
     (mkIf cfg.enable {
       user.packages = with pkgs; [
         ocamlPackages.ocaml
         ocamlPackages.ocaml-lsp
+        ocamlPackages.utop
+        ocamlPackages.ocp-indent
+        ocamlPackages.merlin
         ocamlformat
         opam
+        dune_3
       ];
     })
 

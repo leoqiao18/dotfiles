@@ -20,7 +20,8 @@ in {
 
     home.services.emacs = {
       enable = true; # systemd Emacs service
-      # socketActivation.enable = true; # systemd socket activation for the Emacs service
+      socketActivation.enable =
+        true; # systemd socket activation for the Emacs service
       client.enable = true; # generation of Emacs client desktop file
     };
 
@@ -56,7 +57,7 @@ in {
       # :tools lookup & :lang org +roam
       sqlite
       # :lang latex & :lang ord (latex previews)
-      # texlive.combined.scheme-medium
+      texlive.combined.scheme-medium
     ];
 
     # Fonts -> icons + ligatures when specified:

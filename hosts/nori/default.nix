@@ -50,6 +50,7 @@
       coq.enable = true;
       diagnostic.enable = true;
       go.enable = true;
+      graphviz.enable = true;
       haskell.enable = true;
       javascript.enable = true;
       lua.enable = true;
