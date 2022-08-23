@@ -4,7 +4,8 @@ with lib.my;
 let
   cfg = config.modules.desktop.editors.emacs;
   configDir = config.dotfiles.configDir;
-in {
+in
+{
   options.modules.desktop.editors.emacs = {
     enable = mkBoolOpt false;
     doom = {
@@ -67,8 +68,8 @@ in {
     env.PATH = [ "$XDG_CONFIG_HOME/emacs/bin" ];
 
     environment.variables = {
-      EMACSDIR = "$XDG_CONFIG_HOME/emacs";
-      DOOMDIR = "$XDG_CONFIG_HOME/doom";
+      EMACSDIR = "$XDG_CONFIG_HOME/emacs/";
+      DOOMDIR = "$XDG_CONFIG_HOME/doom/";
     };
 
     home.configFile."doom" = {
