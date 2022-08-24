@@ -18,10 +18,10 @@ import           XMonad.Hooks.ManageDocks
 import           XMonad.Hooks.ManageHelpers
 import           XMonad.Hooks.StatusBar
 import           XMonad.Hooks.StatusBar.PP
-import           XMonad.Layout.Spacing
 import           XMonad.Layout.Grid
-import           XMonad.Layout.ThreeColumns
 import           XMonad.Layout.MultiColumns
+import           XMonad.Layout.Spacing
+import           XMonad.Layout.ThreeColumns
 import           XMonad.Util.Dmenu             as DM
 import           XMonad.Util.EZConfig
 import           XMonad.Util.Loggers
@@ -98,14 +98,14 @@ myXmobarPP = def { ppSep             = nord7' " • "
                  -- , ppTitleSanitize   = xmobarStrip
                  -- , ppCurrent = wrap " " "" . xmobarBorder "Top" nord7 2
                  -- , ppCurrent = wrap " " "" . xmobarBorder "Bottom" nord8 2
-                 , ppCurrent = wrap " " "" . xmobarBorder "Top" nord8 2
+                 , ppCurrent         = wrap " " "" . xmobarBorder "Top" nord8 2
                  -- , ppHidden          = nord6' . wrap " " ""
                  -- , ppHidden          = wrap " " "" . xmobarBorder "Top" nord9 2
                  , ppHidden          = wrap " " ""
                  -- , ppHiddenNoWindows = nord5' . wrap " " ""
                  , ppHiddenNoWindows = nord3' . wrap " " ""
-                 , ppUrgent          = nord11' . wrap (nord13' "!") (nord13' "!")
-                 , ppOrder           = \(ws:l:t:_) -> [ws, l, t]
+                 , ppUrgent = nord11' . wrap (nord13' "!") (nord13' "!")
+                 , ppOrder           = \(ws : l : t : _) -> [ws, l, t]
                  -- , ppExtras          = [logTitles formatFocused formatUnfocused]
                  }
  where
@@ -118,15 +118,15 @@ myXmobarPP = def { ppSep             = nord7' " • "
   ppWindow = xmobarRaw . (\w -> if null w then "untitled" else w) . shorten 30
 
   nord5', nord6', nord7', nord9', nord11', nord13' :: String -> String
-  nord3'    = xmobarColor nord3 ""
-  nord5'    = xmobarColor nord5 ""
-  nord6'    = xmobarColor nord6 ""
-  nord7'    = xmobarColor nord7 ""
+  nord3'  = xmobarColor nord3 ""
+  nord5'  = xmobarColor nord5 ""
+  nord6'  = xmobarColor nord6 ""
+  nord7'  = xmobarColor nord7 ""
   nord8'  = xmobarColor nord8 ""
   nord9'  = xmobarColor nord9 ""
-  nord10'  = xmobarColor nord10 ""
-  nord11'  = xmobarColor nord11 ""
-  nord13'  = xmobarColor nord13 ""
+  nord10' = xmobarColor nord10 ""
+  nord11' = xmobarColor nord11 ""
+  nord13' = xmobarColor nord13 ""
 
 -- The default number of workspaces (virtual screens) and their names.
 -- By default we use numeric strings, but any string may be used as a
@@ -166,13 +166,13 @@ myKeys =
 
   -- Favorite programs
   , ("M-<Return>"            , spawn "kitty")
-  , ("M-b", spawn "qutebrowser")
+  , ("M-b"                   , spawn "qutebrowser")
 
   -- Emacs (SUPER-e followed by a key)
   , ("M-e a", spawn $ myEmacsEval "(org-todo-list)")
-  , ("M-e b", spawn $ myEmacsEval "(ibuffer)")
-  , ("M-e d", spawn $ myEmacsEval "(dired nil)")
-  , ("M-e e", spawn myEmacs)
+  , ("M-e b"                 , spawn $ myEmacsEval "(ibuffer)")
+  , ("M-e d"                 , spawn $ myEmacsEval "(dired nil)")
+  , ("M-e e"                 , spawn myEmacs)
   , ("M-e t", spawn $ myEmacsEval "(org-roam-dailies-capture-today)")
   , ("M-e v", spawn $ myEmacsEval "(+vterm/here nil)")
 
@@ -312,11 +312,13 @@ myMouseBindings (XConfig { XMonad.modMask = modm }) =
 -- The available layouts.  Note that each layout is separated by |||,
 -- which denotes layout choice.
 --
-myLayoutHook = avoidStruts (   Tall nmaster delta ratio
-                           ||| ThreeColMid nmaster delta ratio
-                           ||| Grid
-                           ||| multiCol [1] 1 0.01 (-0.5)
-                           ||| Full)
+myLayoutHook = avoidStruts
+  (   Tall nmaster delta ratio
+  ||| ThreeColMid nmaster delta ratio
+  ||| Grid
+  ||| multiCol [1] 1 0.01 (-0.5)
+  ||| Full
+  )
  where
   -- The default number of windows in the master pane
   nmaster = 1
