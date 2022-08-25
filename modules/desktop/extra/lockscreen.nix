@@ -6,8 +6,8 @@ in {
   config = mkIf cfg.xmonad.enable {
     user.packages = with pkgs; [
       i3lock
-      # xautolock
-      xss-lock
+      xautolock
+      #xss-lock
     ];
 
     # xautolock to lock the screen (using i3lock) after 1 minute
@@ -16,9 +16,9 @@ in {
 
     # xss-lock to lock the screen on suspend (including keyboard hotkey)
     services.xserver.displayManager.sessionCommands = ''
-      ${getExe pkgs.xautolock} -detectsleep -time 1 \
-                -locker "${getExe pkgs.i3lock} -c 2e3440" \
-                -notify 10 -notifier "${pkgs.libnotify}/bin/notify-send 'Screen will be locked in 10 seconds'" &
+      ${getExe pkgs.xautolock} -detectsleep -time 5 \
+                -locker "${getExe pkgs.i3lock} -c 2e3440 && systemctl suspend" \
+                -notify 10 -notifier "${pkgs.libnotify}/bin/notify-send 'Suspending in 10 seconds'" &
     '';
   };
 }
