@@ -1,9 +1,11 @@
 { options, config, lib, pkgs, ... }:
 with lib;
 with lib.my;
-let cfg = config.modules.desktop;
+let cfg = config.modules.desktop.extra.lockscreen;
 in {
-  config = mkIf cfg.xmonad.enable {
+  options.modules.desktop.extra.lockscreen = { enable = mkBoolOpt false; };
+
+  config = mkIf cfg.enable {
     user.packages = with pkgs; [ i3lock xautolock xss-lock ];
 
     # xautolock to lock the screen (using i3lock) after 1 minute

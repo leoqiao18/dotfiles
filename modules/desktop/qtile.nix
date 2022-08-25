@@ -1,11 +1,11 @@
-{ inputs, options, config, lib, pkgs, ... }:
+{ inputs, option, config, lib, pkgs, ... }:
 with lib;
 with lib.my;
 let
-  cfg = config.modules.desktop.xmonad;
+  cfg = config.modules.desktop.qtile;
   configDir = config.dotfiles.configDir;
 in {
-  options.modules.desktop.xmonad = { enable = mkBoolOpt false; };
+  options.modules.desktop.qtile = { enable = mkBoolOpt false; };
 
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
@@ -41,7 +41,7 @@ in {
     services.xserver = {
       enable = true;
       displayManager = {
-        defaultSession = "none+xmonad";
+        defaultSession = "none+qtile";
         lightdm = {
           enable = true;
           greeters.mini.enable = true;
@@ -50,16 +50,10 @@ in {
           ${getExe pkgs.autorandr} -c
         '';
       };
-      windowManager.xmonad = {
-        enable = true;
-        enableContribAndExtras = true;
-      };
+      windowManager.qtile.enable = true;
     };
 
-    services = {
-      autorandr.enable = true;
-      blueman.enable = true;
-    };
+    services = { blueman.enable = true; };
 
     home.services = {
       gnome-keyring.enable = true;
@@ -69,17 +63,10 @@ in {
     };
 
     home.configFile = {
-      "xmonad" = {
-        source = "${configDir}/xmonad";
+      "qtile" = {
+        source = "${configDir}/qtile";
         recursive = true;
       };
     };
-    # home.xsession = {
-    #   enable = true;
-    #   numlock.enable = true;
-    #   preferStatusNotifierItems = true;
-    #   windowManager.command = "${getExe pkgs.haskellPackages.my-xmonad}";
-    #   importedVariables = [ "GDK_PIXBUF_MODULE_FILE" ];
-    # };
   };
 }

@@ -121,7 +121,7 @@ in {
         ];
     })
 
-    (mkIf (deskCfg.xmonad.enable) {
+    (mkIf (deskCfg.xmonad.enable || deskCfg.qtile.enable) {
       services.xserver.displayManager = {
         sessionCommands = with cfg.gtk; ''
           ${

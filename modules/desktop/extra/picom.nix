@@ -1,15 +1,11 @@
-{ options
-, config
-, lib
-, pkgs
-, ...
-}:
+{ options, config, lib, pkgs, ... }:
 with lib;
-with lib.my; let
-  cfg = config.modules.desktop;
-in
-{
-  config = mkIf (cfg.xmonad.enable) {
+with lib.my;
+let cfg = config.modules.desktop.extra.picom;
+in {
+  options.modules.desktop.extra.picom = { enable = mkBoolOpt false; };
+
+  config = mkIf cfg.enable {
     services.picom = {
       enable = true;
       backend = "glx";
@@ -19,9 +15,7 @@ in
       fade = true;
       fadeDelta = 3;
 
-      settings = {
-        corner-radius = 10;
-      };
+      settings = { corner-radius = 10; };
     };
   };
 }

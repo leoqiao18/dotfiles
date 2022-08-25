@@ -1,20 +1,13 @@
-{ options
-, config
-, lib
-, pkgs
-, ...
-}:
+{ options, config, lib, pkgs, ... }:
 with lib;
-with lib.my; let
-  cfg = config.modules.desktop;
+with lib.my;
+let
+  cfg = config.modules.desktop.extra.rofi;
   rofiDir = "${config.dotfiles.configDir}/rofi";
-in
-{
-  options.modules.desktop.extra.rofi = {
-    enable = mkBoolOpt false;
-  };
+in {
+  options.modules.desktop.extra.rofi = { enable = mkBoolOpt false; };
 
-  config = mkIf (cfg.xmonad.enable) {
+  config = mkIf cfg.enable {
     user.packages = with pkgs; [
       rofi-systemd
 
