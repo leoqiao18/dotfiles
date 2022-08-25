@@ -16,6 +16,7 @@ in {
 
     # xss-lock to lock the screen on suspend (including keyboard hotkey)
     services.xserver.displayManager.sessionCommands = ''
+      xset s off -dpms
       ${getExe pkgs.xautolock} -detectsleep -time 5 \
                 -locker "${getExe pkgs.i3lock} -c 2e3440 && systemctl suspend" \
                 -notify 10 -notifier "${pkgs.libnotify}/bin/notify-send 'Suspending in 10 seconds'" &
