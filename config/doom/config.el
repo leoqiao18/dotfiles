@@ -93,3 +93,7 @@
       org-roam-dailies-directory "journal/"
       org-archive-location (concat org-directory ".archive/%s::")
       org-agenda-files (list (concat org-roam-directory org-roam-dailies-directory)))
+
+;; disable LSP formatter
+;; because they dont format unless no error
+(setq +format-with-lsp nil)

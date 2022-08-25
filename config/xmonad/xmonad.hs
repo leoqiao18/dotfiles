@@ -75,7 +75,7 @@ main =
   xmonad
     $ docks
     . ewmh
-    . withSB (statusBarProp "xmobar" (pure myXmobarPP))
+    . withSB (statusBarProp "~/.config/xmobar/xmobar.hs" (pure myXmobarPP))
     -- . withNavigation2DConfig def
     $ myConfig
 
