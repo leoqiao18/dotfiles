@@ -6,7 +6,7 @@ in {
   options.modules.hardware.audio = { enable = mkBoolOpt false; };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [ pavucontrol ];
+    environment.systemPackages = with pkgs; [ pavucontrol pamixer ];
 
     security.rtkit.enable = true;
 

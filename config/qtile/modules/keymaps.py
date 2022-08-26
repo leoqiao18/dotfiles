@@ -33,11 +33,10 @@ window_navigation = [
 ]
 
 window_displacement = [
-    Key([mod], "Return", lazy.layout.swap_main()),
-    Key([mod, "shift"], "h", lazy.layout.swap_left()),
-    Key([mod, "shift"], "l", lazy.layout.swap_right()),
-    Key([mod, "shift"], "j", lazy.layout.swap_down()),
-    Key([mod, "shift"], "k", lazy.layout.swap_up()),
+    Key([mod, "shift"], "h", lazy.layout.shuffle_left()),
+    Key([mod, "shift"], "l", lazy.layout.shuffle_right()),
+    Key([mod, "shift"], "j", lazy.layout.shuffle_down()),
+    Key([mod, "shift"], "k", lazy.layout.shuffle_up()),
 ]
 
 window_dimension = [
@@ -57,7 +56,7 @@ window_toggles = [
 ]
 
 qtilectl = [
-    Key([mod, "shift"], "r", lazy.restart()),
+    Key([mod, "shift"], "r", lazy.reload_config()),
     Key([mod, "shift"], "q", lazy.shutdown()),
 ]
 
@@ -75,7 +74,7 @@ rofi_spawns = [
 ]
 
 application_spawns = [
-    Key([mod, "shift"], "Return", lazy.spawn(myTerm)),
+    Key([mod], "Return", lazy.spawn(myTerm)),
     Key([mod], "b", lazy.spawn(myBrowser)),
 ]
 
@@ -84,16 +83,18 @@ audioctl = [
     Key([], "XF86AudioLowerVolume", lazy.spawn("volctl --down")),
     Key([], "XF86AudioMute", lazy.spawn("volctl --mute")),
     Key([], "XF86AudioMicMute", lazy.spawn("micvol --mute")),
-    Key([mod], "v", lazy.spawn("volctl --up")),
-    Key([mod, "shift"], "v", lazy.spawn("volctl --down")),
-    Key([mod, "ctrl"], "v", lazy.spawn("volctl --mute")),
-    Key([], "", lazy.spawn("micvol --mute")),
+    Key([mod, "shift"], "Right", lazy.spawn("volctl --up")),
+    Key([mod, "shift"], "Left", lazy.spawn("volctl --down")),
+    Key([mod, "shift"], "Down", lazy.spawn("volctl --mute")),
+    Key([mod, "control"], "Right", lazy.spawn("micvol --up")),
+    Key([mod, "control"], "Left", lazy.spawn("micvol --down")),
+    Key([mod, "control"], "Down", lazy.spawn("micvol --mute")),
 ]
 
 mediactl = [
-    Key([mod], "Down", lazy.spawn("playerctl play-puase")),
+    Key([mod], "Down", lazy.spawn("playerctl play-pause")),
     Key([mod], "Left", lazy.spawn("playerctl previous")),
-    Key([mod], "Down", lazy.spawn("playerctl next")),
+    Key([mod], "Right", lazy.spawn("playerctl next")),
 ]
 
 brightctl = [
@@ -127,4 +128,5 @@ keys = [
     *audioctl,
     *mediactl,
     *brightctl,
+    *emacs,
 ]

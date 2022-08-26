@@ -11,7 +11,7 @@ frame_width = 3
 origin = top-right
 # width = 440
 # height = 15
-offset = 0x30
+offset = 0x48
 history_length = 20
 horizontal_padding = 10
 icon_position = right
@@ -36,15 +36,18 @@ word_wrap = yes
 [urgency_low]
 background = "#434c5e"
 foreground = "#d8dee9"
+highlight = "#8fbcbb"
 timeout = 8
 
 [urgency_normal]
 background = "#434c5e"
 foreground = "#d8dee9"
+highlight = "#8fbcbb"
 timeout = 14
 
 [urgency_critical]
 background = "#434c5e"
 foreground = "#d8dee9"
+highlight = "#8fbcbb"
 frame_color = "#bf616a"
 timeout = 0

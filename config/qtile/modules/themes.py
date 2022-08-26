@@ -15,18 +15,26 @@ nord13 = "#ebcb8b"
 nord14 = "#a3be8c"
 nord15 = "#b48ead"
 
-nordList = [
-    nord1,
-    nord11,
-    nord14,
-    nord13,
-    nord9,
-    nord15,
-    nord8,
-    nord5,
-    nord4,
+nord = [
     nord0,
+    nord1,
+    nord2,
+    nord3,
+    nord4,
+    nord5,
+    nord6,
+    nord7,
+    nord8,
+    nord9,
+    nord10,
+    nord11,
+    nord12,
+    nord13,
+    nord14,
+    nord15,
 ]
+
+nordList = nord
 
 nordDict = {
     "black": nord1,

@@ -8,6 +8,17 @@ in {
   options.modules.desktop.qtile = { enable = mkBoolOpt false; };
 
   config = mkIf cfg.enable {
+
+    # add widget dependencies
+    # nixpkgs.overlays = [
+    #   (self: super: {
+    #     qtile = super.qtile.overrideAttrs (old: {
+    #       pythonPath = (old.pythonPath or [ ])
+    #         ++ (with self.python3Packages; [ dbus-next ]);
+    #     });
+    #   })
+    # ];
+
     environment.systemPackages = with pkgs; [
       lightdm
       libnotify
@@ -34,7 +45,6 @@ in {
         picom.enable = true;
         rofi.enable = true;
         xkbOptions.enable = true;
-        xmobar.enable = true;
       };
     };
 

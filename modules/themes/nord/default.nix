@@ -20,7 +20,8 @@ let
   nord13 = "#ebcb8b";
   nord14 = "#a3be8c";
   nord15 = "#b48ead";
-in {
+in
+{
   config = mkIf (cfg.active == "nord") (mkMerge [
     {
       modules.themes = {
@@ -75,7 +76,7 @@ in {
 
     # Desktop (X11) theming <- Change after gnome = independent of xserver.
     (mkIf config.services.xserver.enable {
-      user.packages = with pkgs; [ nordic paper-icon-theme ];
+      user.packages = with pkgs; [ nordic whitesur-icon-theme paper-icon-theme ];
 
       fonts.fonts = with pkgs; [
         # iosevka
@@ -96,28 +97,28 @@ in {
           # "fish/conf.d/catppuccin.fish".source =
           #   ./config/fish/catppuccin.fish;
         }
-        # (mkIf (xmonad.enable || qtile.enable) {
-        #   "dunst/dunstrc".text = import ./config/dunst/dunstrc cfg;
-        #   "rofi" = {
-        #     source = ./config/rofi;
-        #     recursive = true;
-        #   };
-        # })
-        # (mkIf terminal.alacritty.enable {
-        #   "alacritty/config/catppuccin.yml".text =
-        #     import ./config/alacritty/catppuccin.yml cfg;
-        # })
-        # (mkIf terminal.kitty.enable {
-        #   "kitty/config/catppuccin.conf".text =
-        #     import ./config/kitty/catppuccin.conf cfg;
-        # })
-        # (mkIf media.viewer.document.enable {
-        #   "zathura/zathurarc".text = import ./config/zathura/zathurarc cfg;
-        # })
-        # (mkIf media.editor.vector.enable {
-        #   "inkscape/templates/default.svg".source =
-        #     ./config/inkscape/default-template.svg;
-        # })
+          # (mkIf (xmonad.enable || qtile.enable) {
+          #   "dunst/dunstrc".text = import ./config/dunst/dunstrc cfg;
+          #   "rofi" = {
+          #     source = ./config/rofi;
+          #     recursive = true;
+          #   };
+          # })
+          # (mkIf terminal.alacritty.enable {
+          #   "alacritty/config/catppuccin.yml".text =
+          #     import ./config/alacritty/catppuccin.yml cfg;
+          # })
+          # (mkIf terminal.kitty.enable {
+          #   "kitty/config/catppuccin.conf".text =
+          #     import ./config/kitty/catppuccin.conf cfg;
+          # })
+          # (mkIf media.viewer.document.enable {
+          #   "zathura/zathurarc".text = import ./config/zathura/zathurarc cfg;
+          # })
+          # (mkIf media.editor.vector.enable {
+          #   "inkscape/templates/default.svg".source =
+          #     ./config/inkscape/default-template.svg;
+          # })
         ];
     })
 

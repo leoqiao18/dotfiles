@@ -2,4 +2,9 @@
 
 configuration {
   icon-theme: "Paper";
+
+  kb-remove-to-eol: "";
+  kb-accept-entry: "Return";
+  kb-row-down: "Down,Control+n,Control+j";
+  kb-row-up: "Up,Control+p,Control+k";
 }

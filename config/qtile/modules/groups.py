@@ -1,21 +1,11 @@
-from libqtile import bar, layout, widget
+from libqtile import layout
 from libqtile.command import lazy
 from libqtile.config import DropDown, Group, Key, KeyChord, Match, ScratchPad
 
 from modules.keymaps import mod, keys
 from modules.themes import palette
 
-groups = [
-    Group("1", label="一"),
-    Group("2", label="二"),
-    Group("3", label="三"),
-    Group("4", label="四"),
-    Group("5", label="五"),
-    Group("6", label="六"),
-    Group("7", label="七"),
-    Group("8", label="八"),
-    Group("9", label="九"),
-]
+groups = [Group(f"{i}", label="") for i in range(1, 9)]
 
 for i in groups:
     keys.extend(
@@ -28,8 +18,8 @@ for i in groups:
     )
 
 borderline = dict(
-    border_focus=palette["black"],
-    border_normal=palette["cyan"],
+    border_focus=palette["cyan"],
+    border_normal=palette["black"],
     border_width=3,
     margin=10,
 )
