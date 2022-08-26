@@ -169,7 +169,6 @@ def widgetlist():
             windowname,
             cpu,
             mem,
-            batt,
         ]
         + laptopWidgets
         + [

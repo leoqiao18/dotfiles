@@ -5,7 +5,7 @@ from libqtile.config import DropDown, Group, Key, KeyChord, Match, ScratchPad
 from modules.keymaps import mod, keys
 from modules.themes import palette
 
-groups = [Group(f"{i}", label="") for i in range(1, 9)]
+groups = [Group(f"{i}", label="") for i in range(1, 10)]
 
 for i in groups:
     keys.extend(
