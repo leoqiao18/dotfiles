@@ -81,11 +81,11 @@ logo = [
     {
         "font": fontinfo["font"],
         "background": nord[7],
-        "fontsize": 28,
+        "fontsize": 20,
         "foreground": palette["bg"],
         "mouse_callbacks": {"Button1": lazy.spawn(ROFI)},
-        "padding": -1.0,
-        "text": "  \uf313",
+        # "padding": 2.0,
+        "text": "  \uf313 ",
     },
 ]
 

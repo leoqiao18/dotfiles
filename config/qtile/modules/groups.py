@@ -16,6 +16,12 @@ for i in groups:
             Key([mod, "shift"], i.name, lazy.window.togroup(i.name)),
         ]
     )
+keys.extend(
+    [
+        Key([mod], "comma", lazy.screen.prev_group()),
+        Key([mod], "period", lazy.screen.next_group()),
+    ]
+)
 
 borderline = dict(
     border_focus=palette["cyan"],
