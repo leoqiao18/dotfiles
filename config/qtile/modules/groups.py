@@ -70,6 +70,11 @@ groups.append(
         "SP",
         [
             DropDown(
+                "Terminal",
+                "kitty",
+                **next_maximum,
+            ),
+            DropDown(
                 "Discord",
                 "discord",
                 match=Match(wm_class="discord"),
@@ -81,7 +86,9 @@ groups.append(
                 match=Match(wm_class="slack"),
                 **next_maximum,
             ),
-            DropDown("Music", "spotify", **next_maximum),
+            DropDown(
+                "Music", "spotify", match=Match(wm_class="spotify"), **next_maximum
+            ),
             DropDown("Volume", "pavucontrol", **next_maximum),
         ],
     )
@@ -93,6 +100,7 @@ keys.extend(
             [mod],
             "d",
             [
+                Key([], "Return", lazy.group["SP"].dropdown_toggle("Terminal")),
                 Key([], "d", lazy.group["SP"].dropdown_toggle("Discord")),
                 Key([], "s", lazy.group["SP"].dropdown_toggle("Slack")),
                 Key([], "m", lazy.group["SP"].dropdown_toggle("Music")),

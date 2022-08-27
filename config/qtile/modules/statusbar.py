@@ -85,7 +85,7 @@ logo = [
         "foreground": palette["bg"],
         "mouse_callbacks": {"Button1": lazy.spawn(ROFI)},
         "padding": -1.0,
-        "text": "  \u2744",
+        "text": "  \uf313",
     },
 ]
 

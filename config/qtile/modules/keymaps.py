@@ -69,6 +69,7 @@ rofi_spawns = [
             Key([], "w", lazy.spawn("rofi -show window")),
             Key([], "r", lazy.spawn("rofi -show run")),
             Key([], "s", lazy.spawn("rofi-systemd")),
+            Key([], "l", lazy.spawn("powermenu")),
         ],
     ),
 ]

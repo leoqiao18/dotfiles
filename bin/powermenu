@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+lock_command="i3lock -c 2e3440 &"
+
+### Options ###
+power_off=$(echo -e "\tShutdown")
+reboot=$(echo -e "\tReboot")
+lock=$(echo -e "\tLock")
+suspend=$(echo -e "鈴\tSleep")
+log_out=$(echo -e "\tLogout")
+
+# Variable passed to rofi
+options="$power_off\n$reboot\n$lock\n$suspend\n$log_out"
+
+answer="$(echo -e "$options" | rofi -dmenu -i -p " " -selected-row 2)"
+
+case $answer in
+    "$power_off")
+        systemctl poweroff
+        ;;
+    "$reboot")
+        systemctl reboot
+        ;;
+    "$lock")
+        eval "$lock_command"
+        sleep 1
+        xset dpms force off
+        ;;
+    "$suspend")
+        playerctl pause
+        eval "$lock_command"
+        systemctl suspend
+        ;;
+    "$log_out")
+        echo "hi"
+        loginctl terminate-user "$(whoami)"
+        ;;
+    *)
+        echo "$answer"
+        echo "$log_out"
+        ;;
+esac

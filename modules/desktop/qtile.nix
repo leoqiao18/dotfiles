@@ -30,6 +30,9 @@ in {
       xclip
       feh
       arandr
+      bc
+      maim
+      slop
     ];
 
     modules.desktop = {
