@@ -7,7 +7,7 @@ from libqtile.config import Screen
 from libqtile.lazy import lazy
 
 from modules.groups import borderline
-from modules.themes import palette, nord, nordList
+from modules.themes import palette, nord
 
 fontinfo = dict(
     font="JetBrainsMono Nerd Font",

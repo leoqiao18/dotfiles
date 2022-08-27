@@ -34,8 +34,6 @@ nord = [
     nord15,
 ]
 
-nordList = nord
-
 nordDict = {
     "black": nord1,
     "red": nord11,
