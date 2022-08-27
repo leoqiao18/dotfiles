@@ -18,7 +18,7 @@
     themes.active = "nord";
 
     desktop = {
-      xmonad.enable = true;
+      qtile.enable = true;
       terminal = {
         default = "kitty";
         kitty.enable = true;
@@ -42,8 +42,6 @@
           document.enable = true;
         };
       };
-      extra = { dunst.enable = true; };
-      # virtual.wine.enable = true;
     };
 
     develop = {

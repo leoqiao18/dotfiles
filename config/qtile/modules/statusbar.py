@@ -134,15 +134,11 @@ batt = [
         "empty_char": "\uf244 ",
         "full_char": "\uf240 ",
         "unknown_char": "\ue645 ",
-        "format": "{char} {percent:2.0%} ({watt:.2f}W) ",
+        "format": "{char} {percent:2.0%}",
         "low_background": palette["yellow"],
-        "low_foreground": palette["fg"],
+        "low_foreground": palette["bg"],
         "low_percentage": 0.30,
         "show_short_text": False,
-    },
-    widget.BatteryIcon,
-    {
-        "theme_path": "/nix/store/lj3r058gwdnycp1fmbkj58anlg8cpx9z-Whitesur-icon-theme-2022-03-18/share/icons/WhiteSur",
     },
 ]
 
