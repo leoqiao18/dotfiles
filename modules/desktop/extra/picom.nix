@@ -15,7 +15,7 @@ in {
       fade = true;
       fadeDelta = 3;
 
-      settings = { corner-radius = 15; };
+      settings = { corner-radius = 16; };
     };
   };
 }

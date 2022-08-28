@@ -92,9 +92,7 @@ groups.append(
                 match=Match(wm_class="slack"),
                 **next_maximum,
             ),
-            DropDown(
-                "Music", "spotify", match=Match(wm_class="spotify"), **next_maximum
-            ),
+            DropDown("Music", "spotify", **next_maximum),
             DropDown("Volume", "pavucontrol", **next_maximum),
         ],
     )
