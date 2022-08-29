@@ -96,4 +96,9 @@
 
 ;; disable LSP formatter
 ;; because they dont format unless no error
+;; using the format-all package instead
 (setq +format-with-lsp nil)
+
+;; don't open workspace upon new emacsclient session
+(after! persp-mode
+  (setq persp-emacsclient-init-frame-behaviour-override "main"))

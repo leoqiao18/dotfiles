@@ -8,10 +8,6 @@ in {
   options.modules.shell.zsh = { enable = mkBoolOpt false; };
 
   config = mkIf cfg.zsh.enable {
-    home.services.lorri.enable = true;
-
-    user.packages = with pkgs; [ any-nix-shell direnv fzf tldr xclip ];
-
     programs.zsh.enable = true;
 
     home.programs.zsh = {
