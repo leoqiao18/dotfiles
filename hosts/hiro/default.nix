@@ -71,10 +71,10 @@
     # };
 
     shell = {
-      default = pkgs.zsh;
+      default = pkgs.fish;
       git.enable = true;
-      zsh.enable = true;
-      # fish.enable = true;
+      # zsh.enable = true;
+      fish.enable = true;
       # gnupg.enable = true;
     };
   };
