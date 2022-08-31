@@ -21,8 +21,8 @@ in
 
     home.services.emacs = {
       enable = true; # systemd Emacs service
-      socketActivation.enable =
-        true; # systemd socket activation for the Emacs service
+      # socketActivation.enable =
+      #   true; # systemd socket activation for the Emacs service
       client.enable = true; # generation of Emacs client desktop file
     };
 

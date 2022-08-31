@@ -8,12 +8,16 @@
     nixpkgs-unstable.url = "nixpkgs/nixpkgs-unstable";
 
     # declarative user home
-    home-manager.url = "github:nix-community/home-manager/master";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager = {
+      url = "github:nix-community/home-manager/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # secret deployment (unused at the moment)
-    agenix.url = "github:ryantm/agenix";
-    agenix.inputs.nixpkgs.follows = "nixpkgs";
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # newest emacs (used in the emacs module)
     emacs.url = "github:nix-community/emacs-overlay";
