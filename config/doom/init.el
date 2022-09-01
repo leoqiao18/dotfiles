@@ -43,7 +43,7 @@
        ;;neotree           ; a project drawer, like NERDTree for vim
        ophints           ; highlight the region an operation acts on
        (popup +defaults)   ; tame sudden yet inevitable temporary windows
-       tabs              ; a tab bar for Emacs
+       ;;tabs              ; a tab bar for Emacs
        ;; (treemacs +treemacs-git-mode)          ; a project drawer, like neotree but cooler
        ;; unicode           ; extended unicode support for various languages
        vc-gutter         ; vcs diff in the fringe
@@ -154,6 +154,7 @@
        nix               ; I hereby declare "nix geht mehr!"
        ocaml             ; an objective camel
        (org
+        +present
         +dragndrop
         +pretty
         +roam2)               ; organize your plain life in plain text
