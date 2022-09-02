@@ -24,3 +24,6 @@ c.url.searchengines = {
     "hoogle": "https://hoogle.haskell.org/?hoogle={}",
     "nixpkgs": "https://search.nixos.org/packages?sort=relevance&type=packages&query={}",
 }
+
+# config.bind("<Ctrl-j>", "prompt-item-focus next", mode="prompt")
+# config.bind("<Ctrl-k>", "prompt-item-focus prev", mode="prompt")
