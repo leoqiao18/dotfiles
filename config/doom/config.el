@@ -102,3 +102,12 @@
 ;; don't open workspace upon new emacsclient session
 (after! persp-mode
   (setq persp-emacsclient-init-frame-behaviour-override "main"))
+
+;; enable lsp-ui-doc on hover
+(setq lsp-ui-doc-show-with-cursor t)
+
+;; please don't interrupt my newlines...
+(define-key company-active-map (kbd "RET") nil)
+(define-key company-active-map [return] nil)
+(define-key company-active-map (kbd "TAB") 'company-complete-selection)
+(define-key company-active-map [tab] 'company-complete-selection)
