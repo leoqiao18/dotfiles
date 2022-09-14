@@ -83,7 +83,11 @@
 
 ;; :lang haskell
 (after! lsp-haskell
-  (setq lsp-haskell-formatting-provider "brittany"))
+  (setq lsp-haskell-formatting-provider "ormolu"))
+;; brittany does not format GADTs correctly
+;; (setq-hook! 'haskell-mode-hook +format-with 'ormolu)
+;; (set-formatter! 'ormolu  "ormolu" :modes '(haskell-mode))
+
 
 ;; :lang org
 (setq +org-roam-auto-backlinks-buffer t
@@ -97,7 +101,7 @@
 ;; disable LSP formatter
 ;; because they dont format unless no error
 ;; using the format-all package instead
-(setq +format-with-lsp nil)
+;; (setq +format-with-lsp nil)
 
 ;; don't open workspace upon new emacsclient session
 (after! persp-mode
@@ -107,7 +111,8 @@
 (setq lsp-ui-doc-show-with-cursor t)
 
 ;; please don't interrupt my newlines...
-(define-key company-active-map (kbd "RET") nil)
-(define-key company-active-map [return] nil)
-(define-key company-active-map (kbd "TAB") 'company-complete-selection)
-(define-key company-active-map [tab] 'company-complete-selection)
+(after! company
+  (define-key company-active-map (kbd "RET") nil)
+  (define-key company-active-map [return] nil)
+  (define-key company-active-map (kbd "TAB") 'company-complete-selection)
+  (define-key company-active-map [tab] 'company-complete-selection))
