@@ -4,8 +4,7 @@ with lib.my;
 let
   cfg = config.modules.desktop.editors.emacs;
   configDir = config.dotfiles.configDir;
-in
-{
+in {
   options.modules.desktop.editors.emacs = {
     enable = mkBoolOpt false;
     doom = {
@@ -57,8 +56,6 @@ in
       editorconfig-core-c
       # :tools lookup & :lang org +roam
       sqlite
-      # :lang latex & :lang ord (latex previews)
-      texlive.combined.scheme-medium
     ];
 
     # Fonts -> icons + ligatures when specified:

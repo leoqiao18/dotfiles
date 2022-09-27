@@ -57,6 +57,7 @@
       ocaml.enable = true;
       python.enable = true;
       shell.enable = true;
+      latex.enable = true;
     };
 
     # containers.transmission = {
