@@ -12,15 +12,16 @@ with lib.my; {
         let
           defaultApps = {
             audio = [ "mpv.desktop" ];
-            browser = [ "chromium.desktop" ];
+            browser = [ "chromium-browser.desktop" ];
             # calendar = [ "org.gnome.Calendar.desktop" ];
             compression = [ "org.gnome.Nautilus.desktop" ];
             directory = [ "org.gnome.Nautilus.desktop" ];
             image = [ "feh.desktop" ];
             # magnet = [ "transmission-gtk.desktop" ];
-            mail = [ "chromium.desktop" ]; # [ "org.gnome.Geary.desktop" ];
-            pdf = [ "evince.desktop" ];
-            text = [ "emacs.desktop" ];
+            mail =
+              [ "chromium-browser.desktop" ]; # [ "org.gnome.Geary.desktop" ];
+            pdf = [ "org.gnome.Evince.desktop" ];
+            text = [ "emacsclient.desktop" ];
             # telegram = [ "telegramdesktop.desktop" ];
             video = [ "mpv.desktop" ];
           };
