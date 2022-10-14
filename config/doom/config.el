@@ -83,7 +83,7 @@
 
 ;; :lang haskell
 (after! lsp-haskell
-  (setq lsp-haskell-formatting-provider "ormolu"))
+  (setq lsp-haskell-formatting-provider "brittany"))
 ;; brittany does not format GADTs correctly
 ;; (setq-hook! 'haskell-mode-hook +format-with 'ormolu)
 ;; (set-formatter! 'ormolu  "ormolu" :modes '(haskell-mode))
