@@ -1,15 +1,10 @@
-{ config
-, options
-, lib
-, pkgs
-, ...
-}:
+{ config, options, lib, pkgs, ... }:
 with lib;
-with lib.my; let
+with lib.my;
+let
   cfg = config.modules.networking;
   configDir = "${config.dotfiles.configDir}";
-in
-{
+in {
   options.modules.networking = {
     enable = mkBoolOpt false;
     networkManager.enable = mkBoolOpt false;
@@ -30,9 +25,9 @@ in
         # wifi.backend = "iwd";
       };
 
-      user.packages = with pkgs; [
-        networkmanager_dmenu
-      ];
+      user.extraGroups = [ "networkmanager" ];
+
+      user.packages = with pkgs; [ networkmanager_dmenu ];
 
       home.configFile."networkmanager-dmenu" = {
         source = "${configDir}/networkmanager-dmenu";
