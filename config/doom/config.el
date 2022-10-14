@@ -82,8 +82,8 @@
 (setq fancy-splash-image (concat doom-private-dir "splash-400.png"))
 
 ;; :lang haskell
-(after! lsp-haskell
-  (setq lsp-haskell-formatting-provider "brittany"))
+;; (after! lsp-haskell
+;;   (setq lsp-haskell-formatting-provider "brittany"))
 ;; brittany does not format GADTs correctly
 ;; (setq-hook! 'haskell-mode-hook +format-with 'ormolu)
 ;; (set-formatter! 'ormolu  "ormolu" :modes '(haskell-mode))
@@ -101,7 +101,7 @@
 ;; disable LSP formatter
 ;; because they dont format unless no error
 ;; using the format-all package instead
-;; (setq +format-with-lsp nil)
+(setq +format-with-lsp nil)
 
 ;; don't open workspace upon new emacsclient session
 (after! persp-mode
